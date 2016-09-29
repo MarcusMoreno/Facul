@@ -1,0 +1,666 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ReviewModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Avaliacao">
+          <Key>
+            <PropertyRef Name="IdAvaliacao" />
+          </Key>
+          <Property Name="IdAvaliacao" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DescricaoAvaliacao" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Expiracao" Type="date" />
+          <Property Name="Titulo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="IdPerfil" Type="int" Nullable="false" />
+          <Property Name="AvaliacaoStatus" Type="bit" />
+        </EntityType>
+        <EntityType Name="AvaliacaoPergunta">
+          <Key>
+            <PropertyRef Name="IdAvaliacaoPergunta" />
+          </Key>
+          <Property Name="IdAvaliacaoPergunta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdAvaliacao" Type="int" Nullable="false" />
+          <Property Name="IdPergunta" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AvaliacaoResposta">
+          <Key>
+            <PropertyRef Name="IdAvaliacaoResposta" />
+          </Key>
+          <Property Name="IdAvaliacaoResposta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdAvaliacao" Type="int" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="IdPergunta" Type="int" Nullable="false" />
+          <Property Name="IdTipoResposta" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Perfil">
+          <Key>
+            <PropertyRef Name="IdPerfil" />
+          </Key>
+          <Property Name="IdPerfil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DescricaoPerfil" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PerfilStatus" Type="bit" />
+        </EntityType>
+        <EntityType Name="Pergunta">
+          <Key>
+            <PropertyRef Name="IdPergunta" />
+          </Key>
+          <Property Name="IdPergunta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DescricaoPergunta" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PerguntaStatus" Type="bit" />
+        </EntityType>
+        <EntityType Name="PerguntaTipoResposta">
+          <Key>
+            <PropertyRef Name="IdPerguntaTipoResposta" />
+          </Key>
+          <Property Name="IdPerguntaTipoResposta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdPergunta" Type="int" Nullable="false" />
+          <Property Name="IdtipoResposta" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TipoResposta">
+          <Key>
+            <PropertyRef Name="IdTipoResposta" />
+          </Key>
+          <Property Name="IdTipoResposta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DescricaoTipoResposta" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TipoRespostaStatus" Type="bit" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telefone" Type="varchar" MaxLength="13" Nullable="false" />
+          <Property Name="IdPerfil" Type="int" Nullable="false" />
+          <Property Name="UsuarioStatus" Type="bit" />
+          <Property Name="Senha" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="fk_Avaliacao_Perfil">
+          <End Role="Perfil" Type="Self.Perfil" Multiplicity="1" />
+          <End Role="Avaliacao" Type="Self.Avaliacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perfil">
+              <PropertyRef Name="IdPerfil" />
+            </Principal>
+            <Dependent Role="Avaliacao">
+              <PropertyRef Name="IdPerfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Avaliacao_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Avaliacao" Type="Self.Avaliacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Avaliacao">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_AvaliacaoPergunta_Avaliacao">
+          <End Role="Avaliacao" Type="Self.Avaliacao" Multiplicity="1" />
+          <End Role="AvaliacaoPergunta" Type="Self.AvaliacaoPergunta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Avaliacao">
+              <PropertyRef Name="IdAvaliacao" />
+            </Principal>
+            <Dependent Role="AvaliacaoPergunta">
+              <PropertyRef Name="IdAvaliacao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_AvaliacaoPergunta_Pergunta">
+          <End Role="Pergunta" Type="Self.Pergunta" Multiplicity="1" />
+          <End Role="AvaliacaoPergunta" Type="Self.AvaliacaoPergunta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pergunta">
+              <PropertyRef Name="IdPergunta" />
+            </Principal>
+            <Dependent Role="AvaliacaoPergunta">
+              <PropertyRef Name="IdPergunta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_AvaliacaoResposta_Avaliacao">
+          <End Role="Avaliacao" Type="Self.Avaliacao" Multiplicity="1" />
+          <End Role="AvaliacaoResposta" Type="Self.AvaliacaoResposta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Avaliacao">
+              <PropertyRef Name="IdAvaliacao" />
+            </Principal>
+            <Dependent Role="AvaliacaoResposta">
+              <PropertyRef Name="IdAvaliacao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_AvaliacaoResposta_Pergunta">
+          <End Role="Pergunta" Type="Self.Pergunta" Multiplicity="1" />
+          <End Role="AvaliacaoResposta" Type="Self.AvaliacaoResposta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pergunta">
+              <PropertyRef Name="IdPergunta" />
+            </Principal>
+            <Dependent Role="AvaliacaoResposta">
+              <PropertyRef Name="IdPergunta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_AvaliacaoResposta_TipoResposta">
+          <End Role="TipoResposta" Type="Self.TipoResposta" Multiplicity="1" />
+          <End Role="AvaliacaoResposta" Type="Self.AvaliacaoResposta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoResposta">
+              <PropertyRef Name="IdTipoResposta" />
+            </Principal>
+            <Dependent Role="AvaliacaoResposta">
+              <PropertyRef Name="IdTipoResposta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_AvaliacaoResposta_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="AvaliacaoResposta" Type="Self.AvaliacaoResposta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="AvaliacaoResposta">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PerguntaTipoResposta_Pergunta">
+          <End Role="Pergunta" Type="Self.Pergunta" Multiplicity="1" />
+          <End Role="PerguntaTipoResposta" Type="Self.PerguntaTipoResposta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pergunta">
+              <PropertyRef Name="IdPergunta" />
+            </Principal>
+            <Dependent Role="PerguntaTipoResposta">
+              <PropertyRef Name="IdPergunta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PerguntaTipoResposta_TipoResposta">
+          <End Role="TipoResposta" Type="Self.TipoResposta" Multiplicity="1" />
+          <End Role="PerguntaTipoResposta" Type="Self.PerguntaTipoResposta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoResposta">
+              <PropertyRef Name="IdTipoResposta" />
+            </Principal>
+            <Dependent Role="PerguntaTipoResposta">
+              <PropertyRef Name="IdtipoResposta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Usuario_Perfil">
+          <End Role="Perfil" Type="Self.Perfil" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perfil">
+              <PropertyRef Name="IdPerfil" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="IdPerfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ReviewModelStoreContainer">
+          <EntitySet Name="Avaliacao" EntityType="Self.Avaliacao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AvaliacaoPergunta" EntityType="Self.AvaliacaoPergunta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AvaliacaoResposta" EntityType="Self.AvaliacaoResposta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Perfil" EntityType="Self.Perfil" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pergunta" EntityType="Self.Pergunta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PerguntaTipoResposta" EntityType="Self.PerguntaTipoResposta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoResposta" EntityType="Self.TipoResposta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_Avaliacao_Perfil" Association="Self.fk_Avaliacao_Perfil">
+            <End Role="Perfil" EntitySet="Perfil" />
+            <End Role="Avaliacao" EntitySet="Avaliacao" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Avaliacao_Usuario" Association="Self.fk_Avaliacao_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Avaliacao" EntitySet="Avaliacao" />
+          </AssociationSet>
+          <AssociationSet Name="fk_AvaliacaoPergunta_Avaliacao" Association="Self.fk_AvaliacaoPergunta_Avaliacao">
+            <End Role="Avaliacao" EntitySet="Avaliacao" />
+            <End Role="AvaliacaoPergunta" EntitySet="AvaliacaoPergunta" />
+          </AssociationSet>
+          <AssociationSet Name="fk_AvaliacaoPergunta_Pergunta" Association="Self.fk_AvaliacaoPergunta_Pergunta">
+            <End Role="Pergunta" EntitySet="Pergunta" />
+            <End Role="AvaliacaoPergunta" EntitySet="AvaliacaoPergunta" />
+          </AssociationSet>
+          <AssociationSet Name="fk_AvaliacaoResposta_Avaliacao" Association="Self.fk_AvaliacaoResposta_Avaliacao">
+            <End Role="Avaliacao" EntitySet="Avaliacao" />
+            <End Role="AvaliacaoResposta" EntitySet="AvaliacaoResposta" />
+          </AssociationSet>
+          <AssociationSet Name="fk_AvaliacaoResposta_Pergunta" Association="Self.fk_AvaliacaoResposta_Pergunta">
+            <End Role="Pergunta" EntitySet="Pergunta" />
+            <End Role="AvaliacaoResposta" EntitySet="AvaliacaoResposta" />
+          </AssociationSet>
+          <AssociationSet Name="fk_AvaliacaoResposta_TipoResposta" Association="Self.fk_AvaliacaoResposta_TipoResposta">
+            <End Role="TipoResposta" EntitySet="TipoResposta" />
+            <End Role="AvaliacaoResposta" EntitySet="AvaliacaoResposta" />
+          </AssociationSet>
+          <AssociationSet Name="fk_AvaliacaoResposta_Usuario" Association="Self.fk_AvaliacaoResposta_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="AvaliacaoResposta" EntitySet="AvaliacaoResposta" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PerguntaTipoResposta_Pergunta" Association="Self.fk_PerguntaTipoResposta_Pergunta">
+            <End Role="Pergunta" EntitySet="Pergunta" />
+            <End Role="PerguntaTipoResposta" EntitySet="PerguntaTipoResposta" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PerguntaTipoResposta_TipoResposta" Association="Self.fk_PerguntaTipoResposta_TipoResposta">
+            <End Role="TipoResposta" EntitySet="TipoResposta" />
+            <End Role="PerguntaTipoResposta" EntitySet="PerguntaTipoResposta" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Usuario_Perfil" Association="Self.fk_Usuario_Perfil">
+            <End Role="Perfil" EntitySet="Perfil" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ReviewModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Avaliacao">
+          <Key>
+            <PropertyRef Name="IdAvaliacao" />
+          </Key>
+          <Property Name="IdAvaliacao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DescricaoAvaliacao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Expiracao" Type="DateTime" Precision="0" />
+          <Property Name="Titulo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="IdPerfil" Type="Int32" Nullable="false" />
+          <Property Name="AvaliacaoStatus" Type="Boolean" />
+          <NavigationProperty Name="Perfil" Relationship="Self.fk_Avaliacao_Perfil" FromRole="Avaliacao" ToRole="Perfil" />
+          <NavigationProperty Name="Usuario" Relationship="Self.fk_Avaliacao_Usuario" FromRole="Avaliacao" ToRole="Usuario" />
+          <NavigationProperty Name="AvaliacaoPerguntas" Relationship="Self.fk_AvaliacaoPergunta_Avaliacao" FromRole="Avaliacao" ToRole="AvaliacaoPergunta" />
+          <NavigationProperty Name="AvaliacaoRespostas" Relationship="Self.fk_AvaliacaoResposta_Avaliacao" FromRole="Avaliacao" ToRole="AvaliacaoResposta" />
+        </EntityType>
+        <EntityType Name="AvaliacaoPergunta">
+          <Key>
+            <PropertyRef Name="IdAvaliacaoPergunta" />
+          </Key>
+          <Property Name="IdAvaliacaoPergunta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdAvaliacao" Type="Int32" Nullable="false" />
+          <Property Name="IdPergunta" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Avaliacao" Relationship="Self.fk_AvaliacaoPergunta_Avaliacao" FromRole="AvaliacaoPergunta" ToRole="Avaliacao" />
+          <NavigationProperty Name="Pergunta" Relationship="Self.fk_AvaliacaoPergunta_Pergunta" FromRole="AvaliacaoPergunta" ToRole="Pergunta" />
+        </EntityType>
+        <EntityType Name="AvaliacaoResposta">
+          <Key>
+            <PropertyRef Name="IdAvaliacaoResposta" />
+          </Key>
+          <Property Name="IdAvaliacaoResposta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdAvaliacao" Type="Int32" Nullable="false" />
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="IdPergunta" Type="Int32" Nullable="false" />
+          <Property Name="IdTipoResposta" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Avaliacao" Relationship="Self.fk_AvaliacaoResposta_Avaliacao" FromRole="AvaliacaoResposta" ToRole="Avaliacao" />
+          <NavigationProperty Name="Pergunta" Relationship="Self.fk_AvaliacaoResposta_Pergunta" FromRole="AvaliacaoResposta" ToRole="Pergunta" />
+          <NavigationProperty Name="TipoResposta" Relationship="Self.fk_AvaliacaoResposta_TipoResposta" FromRole="AvaliacaoResposta" ToRole="TipoResposta" />
+          <NavigationProperty Name="Usuario" Relationship="Self.fk_AvaliacaoResposta_Usuario" FromRole="AvaliacaoResposta" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Perfil">
+          <Key>
+            <PropertyRef Name="IdPerfil" />
+          </Key>
+          <Property Name="IdPerfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DescricaoPerfil" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PerfilStatus" Type="Boolean" />
+          <NavigationProperty Name="Avaliacaos" Relationship="Self.fk_Avaliacao_Perfil" FromRole="Perfil" ToRole="Avaliacao" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.fk_Usuario_Perfil" FromRole="Perfil" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Pergunta">
+          <Key>
+            <PropertyRef Name="IdPergunta" />
+          </Key>
+          <Property Name="IdPergunta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DescricaoPergunta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PerguntaStatus" Type="Boolean" />
+          <NavigationProperty Name="AvaliacaoPerguntas" Relationship="Self.fk_AvaliacaoPergunta_Pergunta" FromRole="Pergunta" ToRole="AvaliacaoPergunta" />
+          <NavigationProperty Name="AvaliacaoRespostas" Relationship="Self.fk_AvaliacaoResposta_Pergunta" FromRole="Pergunta" ToRole="AvaliacaoResposta" />
+          <NavigationProperty Name="PerguntaTipoRespostas" Relationship="Self.fk_PerguntaTipoResposta_Pergunta" FromRole="Pergunta" ToRole="PerguntaTipoResposta" />
+        </EntityType>
+        <EntityType Name="PerguntaTipoResposta">
+          <Key>
+            <PropertyRef Name="IdPerguntaTipoResposta" />
+          </Key>
+          <Property Name="IdPerguntaTipoResposta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdPergunta" Type="Int32" Nullable="false" />
+          <Property Name="IdtipoResposta" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Pergunta" Relationship="Self.fk_PerguntaTipoResposta_Pergunta" FromRole="PerguntaTipoResposta" ToRole="Pergunta" />
+          <NavigationProperty Name="TipoResposta" Relationship="Self.fk_PerguntaTipoResposta_TipoResposta" FromRole="PerguntaTipoResposta" ToRole="TipoResposta" />
+        </EntityType>
+        <EntityType Name="TipoResposta">
+          <Key>
+            <PropertyRef Name="IdTipoResposta" />
+          </Key>
+          <Property Name="IdTipoResposta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DescricaoTipoResposta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TipoRespostaStatus" Type="Boolean" />
+          <NavigationProperty Name="AvaliacaoRespostas" Relationship="Self.fk_AvaliacaoResposta_TipoResposta" FromRole="TipoResposta" ToRole="AvaliacaoResposta" />
+          <NavigationProperty Name="PerguntaTipoRespostas" Relationship="Self.fk_PerguntaTipoResposta_TipoResposta" FromRole="TipoResposta" ToRole="PerguntaTipoResposta" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Telefone" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdPerfil" Type="Int32" Nullable="false" />
+          <Property Name="UsuarioStatus" Type="Boolean" />
+          <Property Name="Senha" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Avaliacaos" Relationship="Self.fk_Avaliacao_Usuario" FromRole="Usuario" ToRole="Avaliacao" />
+          <NavigationProperty Name="AvaliacaoRespostas" Relationship="Self.fk_AvaliacaoResposta_Usuario" FromRole="Usuario" ToRole="AvaliacaoResposta" />
+          <NavigationProperty Name="Perfil" Relationship="Self.fk_Usuario_Perfil" FromRole="Usuario" ToRole="Perfil" />
+        </EntityType>
+        <Association Name="fk_Avaliacao_Perfil">
+          <End Role="Perfil" Type="Self.Perfil" Multiplicity="1" />
+          <End Role="Avaliacao" Type="Self.Avaliacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perfil">
+              <PropertyRef Name="IdPerfil" />
+            </Principal>
+            <Dependent Role="Avaliacao">
+              <PropertyRef Name="IdPerfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Avaliacao_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Avaliacao" Type="Self.Avaliacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Avaliacao">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_AvaliacaoPergunta_Avaliacao">
+          <End Role="Avaliacao" Type="Self.Avaliacao" Multiplicity="1" />
+          <End Role="AvaliacaoPergunta" Type="Self.AvaliacaoPergunta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Avaliacao">
+              <PropertyRef Name="IdAvaliacao" />
+            </Principal>
+            <Dependent Role="AvaliacaoPergunta">
+              <PropertyRef Name="IdAvaliacao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_AvaliacaoResposta_Avaliacao">
+          <End Role="Avaliacao" Type="Self.Avaliacao" Multiplicity="1" />
+          <End Role="AvaliacaoResposta" Type="Self.AvaliacaoResposta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Avaliacao">
+              <PropertyRef Name="IdAvaliacao" />
+            </Principal>
+            <Dependent Role="AvaliacaoResposta">
+              <PropertyRef Name="IdAvaliacao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_AvaliacaoPergunta_Pergunta">
+          <End Role="Pergunta" Type="Self.Pergunta" Multiplicity="1" />
+          <End Role="AvaliacaoPergunta" Type="Self.AvaliacaoPergunta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pergunta">
+              <PropertyRef Name="IdPergunta" />
+            </Principal>
+            <Dependent Role="AvaliacaoPergunta">
+              <PropertyRef Name="IdPergunta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_AvaliacaoResposta_Pergunta">
+          <End Role="Pergunta" Type="Self.Pergunta" Multiplicity="1" />
+          <End Role="AvaliacaoResposta" Type="Self.AvaliacaoResposta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pergunta">
+              <PropertyRef Name="IdPergunta" />
+            </Principal>
+            <Dependent Role="AvaliacaoResposta">
+              <PropertyRef Name="IdPergunta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_AvaliacaoResposta_TipoResposta">
+          <End Role="TipoResposta" Type="Self.TipoResposta" Multiplicity="1" />
+          <End Role="AvaliacaoResposta" Type="Self.AvaliacaoResposta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoResposta">
+              <PropertyRef Name="IdTipoResposta" />
+            </Principal>
+            <Dependent Role="AvaliacaoResposta">
+              <PropertyRef Name="IdTipoResposta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_AvaliacaoResposta_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="AvaliacaoResposta" Type="Self.AvaliacaoResposta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="AvaliacaoResposta">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Usuario_Perfil">
+          <End Role="Perfil" Type="Self.Perfil" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perfil">
+              <PropertyRef Name="IdPerfil" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="IdPerfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PerguntaTipoResposta_Pergunta">
+          <End Role="Pergunta" Type="Self.Pergunta" Multiplicity="1" />
+          <End Role="PerguntaTipoResposta" Type="Self.PerguntaTipoResposta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pergunta">
+              <PropertyRef Name="IdPergunta" />
+            </Principal>
+            <Dependent Role="PerguntaTipoResposta">
+              <PropertyRef Name="IdPergunta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PerguntaTipoResposta_TipoResposta">
+          <End Role="TipoResposta" Type="Self.TipoResposta" Multiplicity="1" />
+          <End Role="PerguntaTipoResposta" Type="Self.PerguntaTipoResposta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoResposta">
+              <PropertyRef Name="IdTipoResposta" />
+            </Principal>
+            <Dependent Role="PerguntaTipoResposta">
+              <PropertyRef Name="IdtipoResposta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ReviewEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Avaliacaos" EntityType="Self.Avaliacao" />
+          <EntitySet Name="AvaliacaoPerguntas" EntityType="Self.AvaliacaoPergunta" />
+          <EntitySet Name="AvaliacaoRespostas" EntityType="Self.AvaliacaoResposta" />
+          <EntitySet Name="Perfils" EntityType="Self.Perfil" />
+          <EntitySet Name="Perguntas" EntityType="Self.Pergunta" />
+          <EntitySet Name="PerguntaTipoRespostas" EntityType="Self.PerguntaTipoResposta" />
+          <EntitySet Name="TipoRespostas" EntityType="Self.TipoResposta" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+          <AssociationSet Name="fk_Avaliacao_Perfil" Association="Self.fk_Avaliacao_Perfil">
+            <End Role="Perfil" EntitySet="Perfils" />
+            <End Role="Avaliacao" EntitySet="Avaliacaos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Avaliacao_Usuario" Association="Self.fk_Avaliacao_Usuario">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Avaliacao" EntitySet="Avaliacaos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_AvaliacaoPergunta_Avaliacao" Association="Self.fk_AvaliacaoPergunta_Avaliacao">
+            <End Role="Avaliacao" EntitySet="Avaliacaos" />
+            <End Role="AvaliacaoPergunta" EntitySet="AvaliacaoPerguntas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_AvaliacaoResposta_Avaliacao" Association="Self.fk_AvaliacaoResposta_Avaliacao">
+            <End Role="Avaliacao" EntitySet="Avaliacaos" />
+            <End Role="AvaliacaoResposta" EntitySet="AvaliacaoRespostas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_AvaliacaoPergunta_Pergunta" Association="Self.fk_AvaliacaoPergunta_Pergunta">
+            <End Role="Pergunta" EntitySet="Perguntas" />
+            <End Role="AvaliacaoPergunta" EntitySet="AvaliacaoPerguntas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_AvaliacaoResposta_Pergunta" Association="Self.fk_AvaliacaoResposta_Pergunta">
+            <End Role="Pergunta" EntitySet="Perguntas" />
+            <End Role="AvaliacaoResposta" EntitySet="AvaliacaoRespostas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_AvaliacaoResposta_TipoResposta" Association="Self.fk_AvaliacaoResposta_TipoResposta">
+            <End Role="TipoResposta" EntitySet="TipoRespostas" />
+            <End Role="AvaliacaoResposta" EntitySet="AvaliacaoRespostas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_AvaliacaoResposta_Usuario" Association="Self.fk_AvaliacaoResposta_Usuario">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="AvaliacaoResposta" EntitySet="AvaliacaoRespostas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Usuario_Perfil" Association="Self.fk_Usuario_Perfil">
+            <End Role="Perfil" EntitySet="Perfils" />
+            <End Role="Usuario" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PerguntaTipoResposta_Pergunta" Association="Self.fk_PerguntaTipoResposta_Pergunta">
+            <End Role="Pergunta" EntitySet="Perguntas" />
+            <End Role="PerguntaTipoResposta" EntitySet="PerguntaTipoRespostas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PerguntaTipoResposta_TipoResposta" Association="Self.fk_PerguntaTipoResposta_TipoResposta">
+            <End Role="TipoResposta" EntitySet="TipoRespostas" />
+            <End Role="PerguntaTipoResposta" EntitySet="PerguntaTipoRespostas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ReviewModelStoreContainer" CdmEntityContainer="ReviewEntities">
+          <EntitySetMapping Name="Avaliacaos">
+            <EntityTypeMapping TypeName="ReviewModel.Avaliacao">
+              <MappingFragment StoreEntitySet="Avaliacao">
+                <ScalarProperty Name="IdAvaliacao" ColumnName="IdAvaliacao" />
+                <ScalarProperty Name="DescricaoAvaliacao" ColumnName="DescricaoAvaliacao" />
+                <ScalarProperty Name="Expiracao" ColumnName="Expiracao" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="IdPerfil" ColumnName="IdPerfil" />
+                <ScalarProperty Name="AvaliacaoStatus" ColumnName="AvaliacaoStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AvaliacaoPerguntas">
+            <EntityTypeMapping TypeName="ReviewModel.AvaliacaoPergunta">
+              <MappingFragment StoreEntitySet="AvaliacaoPergunta">
+                <ScalarProperty Name="IdAvaliacaoPergunta" ColumnName="IdAvaliacaoPergunta" />
+                <ScalarProperty Name="IdAvaliacao" ColumnName="IdAvaliacao" />
+                <ScalarProperty Name="IdPergunta" ColumnName="IdPergunta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AvaliacaoRespostas">
+            <EntityTypeMapping TypeName="ReviewModel.AvaliacaoResposta">
+              <MappingFragment StoreEntitySet="AvaliacaoResposta">
+                <ScalarProperty Name="IdAvaliacaoResposta" ColumnName="IdAvaliacaoResposta" />
+                <ScalarProperty Name="IdAvaliacao" ColumnName="IdAvaliacao" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="IdPergunta" ColumnName="IdPergunta" />
+                <ScalarProperty Name="IdTipoResposta" ColumnName="IdTipoResposta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Perfils">
+            <EntityTypeMapping TypeName="ReviewModel.Perfil">
+              <MappingFragment StoreEntitySet="Perfil">
+                <ScalarProperty Name="IdPerfil" ColumnName="IdPerfil" />
+                <ScalarProperty Name="DescricaoPerfil" ColumnName="DescricaoPerfil" />
+                <ScalarProperty Name="PerfilStatus" ColumnName="PerfilStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Perguntas">
+            <EntityTypeMapping TypeName="ReviewModel.Pergunta">
+              <MappingFragment StoreEntitySet="Pergunta">
+                <ScalarProperty Name="IdPergunta" ColumnName="IdPergunta" />
+                <ScalarProperty Name="DescricaoPergunta" ColumnName="DescricaoPergunta" />
+                <ScalarProperty Name="PerguntaStatus" ColumnName="PerguntaStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PerguntaTipoRespostas">
+            <EntityTypeMapping TypeName="ReviewModel.PerguntaTipoResposta">
+              <MappingFragment StoreEntitySet="PerguntaTipoResposta">
+                <ScalarProperty Name="IdPerguntaTipoResposta" ColumnName="IdPerguntaTipoResposta" />
+                <ScalarProperty Name="IdPergunta" ColumnName="IdPergunta" />
+                <ScalarProperty Name="IdtipoResposta" ColumnName="IdtipoResposta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoRespostas">
+            <EntityTypeMapping TypeName="ReviewModel.TipoResposta">
+              <MappingFragment StoreEntitySet="TipoResposta">
+                <ScalarProperty Name="IdTipoResposta" ColumnName="IdTipoResposta" />
+                <ScalarProperty Name="DescricaoTipoResposta" ColumnName="DescricaoTipoResposta" />
+                <ScalarProperty Name="TipoRespostaStatus" ColumnName="TipoRespostaStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="ReviewModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telefone" ColumnName="Telefone" />
+                <ScalarProperty Name="IdPerfil" ColumnName="IdPerfil" />
+                <ScalarProperty Name="UsuarioStatus" ColumnName="UsuarioStatus" />
+                <ScalarProperty Name="Senha" ColumnName="Senha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

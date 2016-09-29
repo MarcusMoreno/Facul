@@ -1,0 +1,41 @@
+﻿@model IEnumerable<FaculdadeSI.Models.Perfil>
+
+@{
+    ViewBag.Title = "Perfil";
+}
+
+<h2>Perfis</h2>
+
+<div> <a class="btn btn-success pull-right" ui-sref="affiliate({ id: 'new' })" href="~/Perfil/Create"><i class="glyphicon glyphicon-plus"></i> <span>Novo perfil</span></a>  </div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.Label("Descrição do Perfil")
+          </th>
+        <th>
+            @Html.Label("Status")
+          </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DescricaoPerfil)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PerfilStatus)
+        </td>
+
+        <td>
+            <div>
+                <button class="btn btn-warning pull-right" style="width:90px">@Html.ActionLink("Editar", "Edit", new { id = item.IdPerfil })</button>
+                <button class="btn btn-info pull-right" style="width:90px">@Html.ActionLink("Detalhes", "Details", new { id = item.IdPerfil })</button>
+            </div>
+        </td>
+
+    </tr>
+}
+
+</table>

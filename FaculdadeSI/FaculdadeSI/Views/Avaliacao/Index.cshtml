@@ -1,0 +1,75 @@
+﻿@model IEnumerable<FaculdadeSI.Models.Avaliacao>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Avaliações</h2>
+
+<p>
+    <div> <a class="btn btn-success pull-right" ui-sref="affiliate({ id: 'new' })" href="~/Avaliacao/Create"><i class="glyphicon glyphicon-plus"></i> <span>Nova avaliação</span></a>  </div>
+    
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.Label("Descrição")
+            @*@Html.DisplayNameFor(model => model.DescricaoAvaliacao)*@
+        </th>
+        <th>
+            @Html.Label("Expira em:")
+            @*@Html.DisplayNameFor(model => model.Expiracao)*@
+        </th>
+        <th>
+            @Html.Label("Título")
+            @*@Html.DisplayNameFor(model => model.Titulo)*@
+        </th>
+        <th>
+            @Html.Label("Status")
+            @*@Html.DisplayNameFor(model => model.AvaliacaoStatus)*@
+        </th>
+        <th>
+            @Html.Label("Perfil")
+            @*@Html.DisplayNameFor(model => model.Perfil.DescricaoPerfil)*@
+        </th>
+        <th>
+            @Html.Label("Criador")
+            @*@Html.DisplayNameFor(model => model.Usuario.Nome)*@
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DescricaoAvaliacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Expiracao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Titulo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AvaliacaoStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Perfil.DescricaoPerfil)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Usuario.Nome)
+        </td>
+        <td>
+
+            <div>
+                <button class="btn btn-warning pull-right" style="width:90px">@Html.ActionLink("Editar", "Edit", new { id = item.IdAvaliacao })</button>
+                <button class="btn btn-info pull-right" style="width:90px">@Html.ActionLink("Detalhes", "Details", new { id = item.IdAvaliacao })</button>
+            </div>
+                     
+        </td>
+
+        
+    </tr>
+}
+
+</table>

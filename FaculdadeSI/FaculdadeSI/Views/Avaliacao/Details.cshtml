@@ -1,0 +1,75 @@
+﻿@model FaculdadeSI.Models.Avaliacao
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Detalhes avaliação</h2>
+
+<div>
+    @*<h4>Avaliacao</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.LabelFor(model => model.DescricaoAvaliacao, "Descrição")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DescricaoAvaliacao)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.Expiracao,"Expira em")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Expiracao)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.Titulo, "Título")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Titulo)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.AvaliacaoStatus,"Status")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AvaliacaoStatus)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.Perfil.DescricaoPerfil, "Perfil")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Perfil.DescricaoPerfil)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.Usuario.Nome, "Criador")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.Nome)
+        </dd>
+
+    </dl>
+</div>
+@*<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdAvaliacao }) |
+    @Html.ActionLink("Voltar", "Index")
+</p>*@
+
+<div>
+    <p>
+        <button class="btn" style="width:90px">@Html.ActionLink("Voltar", "Index")</button> 
+        <button class="btn btn-warning pull-right" style="width:90px">@Html.ActionLink("Editar", "Edit", new { id = Model.IdAvaliacao })</button>
+        
+    </p>
+</div>
+

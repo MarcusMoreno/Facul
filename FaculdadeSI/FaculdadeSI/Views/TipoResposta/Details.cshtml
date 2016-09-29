@@ -1,0 +1,37 @@
+﻿@model FaculdadeSI.Models.TipoResposta
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Detalhes de opção de resposta</h2>
+
+<div>
+    @*<h4>TipoResposta</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.LabelFor(model => model.DescricaoTipoResposta, "Descrição")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DescricaoTipoResposta)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.TipoRespostaStatus, "Status")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoRespostaStatus)
+        </dd>
+
+    </dl>
+</div>
+<div>
+    <p>
+        <button class="btn" style="width:90px">@Html.ActionLink("Voltar", "Index")</button>
+        <button class="btn btn-warning pull-right" style="width:90px">@Html.ActionLink("Editar", "Edit", new { id = Model.IdTipoResposta })</button>
+
+    </p>
+</div>

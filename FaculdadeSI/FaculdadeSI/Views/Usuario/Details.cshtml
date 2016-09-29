@@ -1,0 +1,69 @@
+﻿@model FaculdadeSI.Models.Usuario
+
+@{
+    ViewBag.Title = "Detalhes do usuário";
+}
+
+<h2>Detalhes do usuário</h2>
+
+<div>
+    @*<h4>Usuario</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Telefone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Telefone)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.UsuarioStatus, "Status")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UsuarioStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Senha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Senha)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.Perfil.DescricaoPerfil,"Perfil")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Perfil.DescricaoPerfil)
+        </dd>
+
+    </dl>
+</div>
+<div>
+    <p>
+        <button class="btn" style="width:90px">@Html.ActionLink("Voltar", "Index")</button>
+        <button class="btn btn-warning pull-right" style="width:90px">@Html.ActionLink("Editar", "Edit", new { id = Model.IdUsuario })</button>
+
+    </p>
+</div>

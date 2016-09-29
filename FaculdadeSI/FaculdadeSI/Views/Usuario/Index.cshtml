@@ -1,0 +1,67 @@
+﻿@model IEnumerable<FaculdadeSI.Models.Usuario>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Usuários</h2>
+
+<p>
+    <div> <a class="btn btn-success pull-right" ui-sref="affiliate({ id: 'new' })" href="~/Usuario/Create"><i class="glyphicon glyphicon-plus"></i> <span>Novo usuário</span></a>  </div>
+ </p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Email)*@
+            @Html.Label("E-mail")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Telefone)
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.UsuarioStatus)*@
+            @Html.Label("Status")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Senha)
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Perfil.DescricaoPerfil)*@
+            @Html.Label("Perfil")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Telefone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UsuarioStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Senha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Perfil.DescricaoPerfil)
+        </td>
+        <td>
+            <div>
+                <button class="btn btn-warning pull-right" style="width:90px">@Html.ActionLink("Editar", "Edit", new { id = item.IdUsuario })</button>
+                <button class="btn btn-info pull-right" style="width:90px">@Html.ActionLink("Detalhes", "Details", new { id = item.IdUsuario })</button>
+            </div>
+        </td>
+    </tr>
+}
+
+</table>

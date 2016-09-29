@@ -1,0 +1,43 @@
+﻿@model IEnumerable<FaculdadeSI.Models.Pergunta>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Perfunta</h2>
+
+<p>
+    <div> <a class="btn btn-success pull-right" ui-sref="affiliate({ id: 'new' })" href="~/Pergunta/Create"><i class="glyphicon glyphicon-plus"></i> <span>Nova pergunta</span></a>  </div>
+   
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.Label("Pergunta")
+            @*@Html.DisplayNameFor(model => model.DescricaoPergunta)*@
+        </th>
+        <th>
+            @Html.Label("Status")
+            @*@Html.DisplayNameFor(model => model.PerguntaStatus)*@
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DescricaoPergunta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PerguntaStatus)
+        </td>
+       <td>
+            <div>
+                <button class="btn btn-warning pull-right" style="width:90px">@Html.ActionLink("Editar", "Edit", new { id = item.IdPergunta })</button>
+                <button class="btn btn-info pull-right" style="width:90px">@Html.ActionLink("Detalhes", "Details", new { id = item.IdPergunta })</button>
+            </div>
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f460b0a7885845769f809150a73ce9a1" Name="Diagram1">
+        <EntityTypeShape EntityType="ReviewModel.Avaliacao" Width="1.875" PointX="10.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReviewModel.AvaliacaoPergunta" Width="1.75" PointX="8" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReviewModel.AvaliacaoResposta" Width="1.625" PointX="2.5" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReviewModel.Perfil" Width="1.5" PointX="14.125" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReviewModel.Pergunta" Width="1.875" PointX="5.375" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReviewModel.PerguntaTipoResposta" Width="2" PointX="2.625" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReviewModel.TipoResposta" Width="1.5" PointX="0.75" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReviewModel.Usuario" Width="1.5" PointX="11.625" PointY="6" IsExpanded="true" />
+        <AssociationConnector Association="ReviewModel.fk_Avaliacao_Perfil" ManuallyRouted="false" />
+        <AssociationConnector Association="ReviewModel.fk_Avaliacao_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="ReviewModel.fk_AvaliacaoPergunta_Avaliacao" ManuallyRouted="false" />
+        <AssociationConnector Association="ReviewModel.fk_AvaliacaoResposta_Avaliacao" ManuallyRouted="false" />
+        <AssociationConnector Association="ReviewModel.fk_AvaliacaoPergunta_Pergunta" ManuallyRouted="false" />
+        <AssociationConnector Association="ReviewModel.fk_AvaliacaoResposta_Pergunta" ManuallyRouted="false" />
+        <AssociationConnector Association="ReviewModel.fk_AvaliacaoResposta_TipoResposta" ManuallyRouted="false" />
+        <AssociationConnector Association="ReviewModel.fk_AvaliacaoResposta_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="ReviewModel.fk_Usuario_Perfil" ManuallyRouted="false" />
+        <AssociationConnector Association="ReviewModel.fk_PerguntaTipoResposta_Pergunta" ManuallyRouted="false" />
+        <AssociationConnector Association="ReviewModel.fk_PerguntaTipoResposta_TipoResposta" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,46 @@
+﻿@model IEnumerable<FaculdadeSI.Models.TipoResposta>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Tipo de Respostas</h2>
+
+<p>
+    <div> <a class="btn btn-success pull-right" ui-sref="affiliate({ id: 'new' })" href="~/TipoResposta/Create"><i class="glyphicon glyphicon-plus"></i> <span>Nova resposta</span></a>  </div>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.Label("Tipo de resposta")
+            @*@Html.DisplayNameFor(model => model.DescricaoTipoResposta)*@
+        </th>
+        <th>
+            @Html.Label("Status")
+            @*@Html.DisplayNameFor(model => model.TipoRespostaStatus)*@
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DescricaoTipoResposta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TipoRespostaStatus)
+        </td>
+        <td>
+            @*<div> <a class="btn btn-warning pull-right" href="~/TipoResposta/Edit"><i class="glyphicon glyphicon-plus"></i> <span>Editar</span></a>  </div>*@
+           
+            <div>
+                <button class="btn btn-warning pull-right" style="width:90px">@Html.ActionLink("Editar", "Edit", new { id = item.IdTipoResposta })</button>
+                <button class="btn btn-info pull-right" style="width:90px">@Html.ActionLink("Detalhes", "Details", new { id = item.IdTipoResposta })</button>
+            </div>
+
+            @*@Html.ActionLink("Delete", "Delete", new { id=item.IdTipoResposta })*@
+        </td>
+    </tr>
+}
+
+</table>

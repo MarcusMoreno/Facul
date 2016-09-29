@@ -1,0 +1,38 @@
+﻿@model FaculdadeSI.Models.Perfil
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Detalhes do Perfil</h2>
+
+<div>
+    @*<h4>Perfil</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            
+            @Html.LabelFor(model => model.DescricaoPerfil, "Descrição do perfil")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DescricaoPerfil)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.PerfilStatus, "Status")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PerfilStatus)
+        </dd>
+
+    </dl>
+</div>
+<div>
+    <p>
+        <button class="btn" style="width:90px">@Html.ActionLink("Voltar", "Index")</button>
+        <button class="btn btn-warning pull-right" style="width:90px">@Html.ActionLink("Editar", "Edit", new { id = Model.IdPerfil })</button>
+
+    </p>
+</div>
