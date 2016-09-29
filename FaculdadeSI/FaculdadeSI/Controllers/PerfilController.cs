@@ -7,7 +7,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FaculdadeSI.Models;
-using FaculdadeSI.Models.Perfil;
 
 namespace FaculdadeSI.Controllers
 {
