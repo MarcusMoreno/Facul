@@ -1,0 +1,339 @@
+﻿title Manter Usuario
+
+alt CreateUser
+User->Fachada: clicaMenuUsuarios
+Fachada->Controle: getUsuarios(IdUser)
+Controle->Modelo: getUsuarios(IdUser)
+Modelo->Repositorio: getUsuarios(IdUser)
+
+Repositorio->>Modelo: listUsuarios
+Modelo->>Controle: listUsuarios
+Controle->>Fachada: listUsuarios
+
+User->Fachada: createUser
+Fachada->Controle: createUser(usuario)
+Controle->Modelo: createUser(usuario)
+Modelo->Repositorio: createUser(usuario)
+
+Repositorio->>Modelo: returnUsuario
+Modelo->>Controle: returnUsuario
+
+Controle-->>Fachada: usuarioCriado
+
+
+alt AlterUser
+User->Fachada: clicaMenuUsuarios
+Fachada->Controle: getUsuarios(IdUser)
+Controle->Modelo: getUsuarios(IdUser)
+Modelo->Repositorio: getUsuarios(IdUser)
+
+Repositorio->>Modelo: listUsuarios
+Modelo->>Controle: listUsuarios
+Controle->>Fachada: listUsuarios
+
+User->Fachada: alterUsuario
+Fachada->Controle: alterUsuario(usuario)
+Controle->Modelo: alterUsuario(usuario)
+Modelo->Repositorio: alterUsuario(usuario)
+
+Repositorio->>Modelo: returnUsuario
+Modelo->>Controle: returnUsuario
+
+Controle-->>Fachada: usuarioAlterado
+
+************************************************************
+title Manter Pergunta
+
+
+alt CreatePergunta
+User->Fachada: clicaMenuPerguntas
+Fachada->Controle: getPerguntas(pergunta)
+Controle->Modelo: getPerguntas(pergunta)
+Modelo->Repositorio: getPerguntas(pergunta)
+
+Repositorio->>Modelo: listPerguntas
+Modelo->>Controle: listPerguntas
+Controle->>Fachada: listPerguntas
+
+User->Fachada: createPergunta
+Fachada->Controle: createPergunta(pergunta)
+Controle->Modelo: createPergunta(pergunta)
+Modelo->Repositorio: createPergunta(pergunta)
+
+Repositorio->>Modelo: returnPergunta
+Modelo->>Controle: returnPergunta
+
+Controle-->>Fachada: perguntaCriada
+
+alt AlterPergunta
+User->Fachada: clicaMenuPerguntas
+Fachada->Controle: getPerguntas(pergunta)
+Controle->Modelo: getPerguntas(pergunta)
+Modelo->Repositorio: getPerguntas(pergunta)
+
+Repositorio->>Modelo: listPerguntas
+Modelo->>Controle: listPerguntas
+Controle->>Fachada: listPerguntas
+
+User->Fachada: alterPergunta
+Fachada->Controle: alterPergunta(pergunta)
+Controle->Modelo: alterPergunta(pergunta)
+Modelo->Repositorio: alterPergunta(pergunta)
+
+Repositorio->>Modelo: returnPergunta
+Modelo->>Controle: returnPergunta
+
+Controle-->>Fachada: perguntaAlterada
+
+*****************************************************************
+
+title Manter Avaliação
+
+
+alt CreateAvalicao
+User->Fachada: clicaMenuAvaliacoes
+Fachada->Controle: getAvaliacoes(avaliacao)
+Controle->Modelo: getAvaliacoes(avaliacao)
+Modelo->Repositorio: getAvaliacoes(avaliacao)
+
+Repositorio->>Modelo: listAvaliacoes
+Modelo->>Controle: listAvaliacoes
+Controle->>Fachada: listAvaliacoes
+
+User->Fachada: createAvaliacao
+Fachada->Controle: createAvaliacao(avalicao)
+Controle->Modelo: createAvaliacao(avalicao)
+Modelo->Repositorio: createAvaliacao(avalicao)
+
+Repositorio->>Modelo: returnAvaliacao
+Modelo->>Controle: returnAvaliacao
+
+Controle-->>Fachada: avaliacaoCriada
+
+alt AlterAvaliacao
+User->Fachada: clicaMenuAvaliacoes
+Fachada->Controle: getAvaliacoes(avaliacao)
+Controle->Modelo: getAvaliacoes(avaliacao)
+Modelo->Repositorio: getAvaliacoes(avaliacao)
+
+Repositorio->>Modelo: listAvaliacoes
+Modelo->>Controle: listAvaliacoes
+Controle->>Fachada: listAvaliacoes
+
+User->Fachada: alterAvaliacao
+Fachada->Controle: alterAvaliacao(avalicao)
+Controle->Modelo: alterAvaliacao(avalicao)
+Modelo->Repositorio: alterAvaliacao(avalicao)
+
+Repositorio->>Modelo: returnAvaliacao
+Modelo->>Controle: returnAvaliacao
+
+Controle-->>Fachada: avaliacaoAlterada
+
+
+************************************************************************
+
+
+title Responder Avaliação
+
+alt ResponderAvaliacao
+User->Fachada: clicaMenuAvaliacoes
+Fachada->Controle: getAvaliacoes(avaliacao)
+Controle->Modelo: getAvaliacoes(avaliacao)
+Modelo->Repositorio: getAvaliacoes(avaliacao)
+Repositorio->>Modelo: listAvaliacoes
+Modelo->>Controle: listAvaliacoes
+Controle->>Fachada: listAvaliacoes
+User->Fachada: selectAvaliacao
+Fachada->>User: confirmaSelect
+User->Fachada: confirmaSelect
+Fachada->Controle: getAvaliacao
+Controle->Modelo: getAvaliacao
+Modelo->Repositorio: getAvaliacao
+Repositorio->>Modelo: returnAvaliacao
+Modelo->>Controle: returnAvaliacao
+Controle->>Fachada: returnAvaliacao
+User->Fachada: sendAvaliacao(avaliacao)
+Fachada->>User: confirmaSend
+User->Fachada: confirmaSend
+Fachada->Controle: sendAvaliacao(avaliacao)
+Controle->Modelo: sendAvaliacao(avaliacao)
+Modelo->Repositorio: sendAvaliacao(avaliacao)
+Repositorio->>Modelo: boolean
+Modelo->>Controle: boolean
+Controle-->>Fachada: Avaliacao Enviada
+
+
+***************************************************
+
+title Manter Resposta
+
+
+alt CreateResposta
+User->Fachada: clicaMenuRespostas
+Fachada->Controle: getRespostas(IdUser)
+Controle->Modelo: getRespostas(IdUser)
+Modelo->Repositorio: getRespostas(IdUser)
+
+Repositorio->>Modelo: listRespostas
+Modelo->>Controle: listRespostas
+Controle->>Fachada: listRespostas
+
+User->Fachada: createResposta
+Fachada->Controle: createResposta(resposta)
+Controle->Modelo: createResposta(resposta)
+Modelo->Repositorio: createResposta(resposta)
+
+Repositorio->>Modelo: returnResposta
+Modelo->>Controle: returnResposta
+
+Controle-->>Fachada: respostaCriada
+
+alt AlterResposta
+User->Fachada: clicaMenuRespostas
+Fachada->Controle: getRespostas(IdUser)
+Controle->Modelo: getRespostas(IdUser)
+Modelo->Repositorio: getRespostas(IdUser)
+
+Repositorio->>Modelo: listRespostas
+Modelo->>Controle: listRespostas
+Controle->>Fachada: listRespostas
+
+User->Fachada: alterResposta
+Fachada->Controle: alterResposta(resposta)
+Controle->Modelo: alterResposta(resposta)
+Modelo->Repositorio: alterResposta(resposta)
+
+Repositorio->>Modelo: returnResposta
+Modelo->>Controle: returnResposta
+
+Controle-->>Fachada: respostaAlterada
+
+
+*************************************************************
+
+title Relatório Avaliação
+
+
+alt RelatorioAvaliacao
+User->Fachada: clicaMenuAvaliacoes
+Fachada->Controle: getAvaliacoes(IdUser)
+Controle->Modelo: getAvaliacoes(IdUser)
+Modelo->Repositorio: getAvaliacoes(IdUser)
+
+Repositorio->>Modelo: listAvaliacoes
+Modelo->>Controle: listAvaliacoes
+Controle->>Fachada: listAvaliacoes
+
+User->Fachada: clicaRelAvaliacao
+Fachada->Controle: gerarRelatorio(listAvaliacao)
+Controle->Modelo: gerarRelatorio(listAvaliacao)
+Modelo->Repositorio: gerarRelatorio(listAvaliacao)
+
+Repositorio->>Modelo: boolean
+Modelo->>Controle: boolean
+
+Controle-->>Fachada: RelatorioEnviado
+
+
+*****************************************************
+
+title Relatório Usuario
+
+
+alt RelatorioUsuario
+User->Fachada: clicaMenuUsuarios
+Fachada->Controle: getUsuarios(IdUser)
+Controle->Modelo: getUsuarios(IdUser)
+Modelo->Repositorio: getUsuarios(IdUser)
+
+Repositorio->>Modelo: listUsuarios
+Modelo->>Controle: listUsuarios
+Controle->>Fachada: listUsuarios
+
+User->Fachada: clicaRelUsuario
+Fachada->Controle: gerarRelatorio(listUsuario)
+Controle->Modelo: gerarRelatorio(listUsuario)
+Modelo->Repositorio: gerarRelatorio(listUsuario)
+
+Repositorio->>Modelo: boolean
+Modelo->>Controle: boolean
+
+Controle-->>Fachada: RelatorioEnviado
+
+******************************************************
+
+title Manter Perfil
+
+
+alt CreatePerfil
+User->Fachada: clicaMenuPerfis
+Fachada->Controle: getPerfis(IdUser)
+Controle->Modelo: getPerfis(IdUser)
+Modelo->Repositorio: getPerfis(IdUser)
+
+Repositorio->>Modelo: listPerfis
+Modelo->>Controle: listPerfis
+Controle->>Fachada: listPerfis
+
+User->Fachada: createPerfil
+Fachada->Controle: createPerfil(perfil)
+Controle->Modelo: createPerfil(perfil)
+Modelo->Repositorio: createPerfil(perfil)
+
+Repositorio->>Modelo: returnPerfil
+Modelo->>Controle: returnPerfil
+
+Controle-->>Fachada: perfilCriado
+
+alt AlterPerfil
+User->Fachada: clicaMenuPerfis
+Fachada->Controle: getPerfis(IdUser)
+Controle->Modelo: getPerfis(IdUser)
+Modelo->Repositorio: getPerfis(IdUser)
+
+Repositorio->>Modelo: listPerfis
+Modelo->>Controle: listPerfis
+Controle->>Fachada: listPerfis
+
+User->Fachada: alterPerfil
+Fachada->Controle: alterPerfil(perfil)
+Controle->Modelo: alterPerfil(perfil)
+Modelo->Repositorio:alterPerfil(perfil)
+
+Repositorio->>Modelo: return Perfil
+Modelo->>Controle: return Perfil
+
+Controle-->>Fachada: perfilAlterado
+
+****************************************************************
+
+
+title Enviar Link
+
+
+alt SendLink
+User->Fachada: clicaMenuAvaliacoes
+Fachada->Controle: getAvaliacoes(IdUser)
+Controle->Modelo: getAvaliacoes(IdUser)
+Modelo->Repositorio: getAvaliacoes(IdUser)
+
+Repositorio->>Modelo: listAvaliacoes
+Modelo->>Controle: listAvaliacoes
+Controle->>Fachada: listAvaliacoes
+
+User->Fachada: selectAvaliacao
+User->Fachada: selectPerfil
+User->Fachada: sendLink
+
+Fachada->Controle: sendLink(avalicao)
+Controle->Modelo: sendLink(avalicao)
+Modelo->Repositorio: sendLink(avalicao)
+
+Repositorio->>Modelo: returnAvaliacao
+Modelo->>Controle: returnAvaliacao
+
+Controle-->>Fachada: linkEnviado
+
+
+
