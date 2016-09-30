@@ -89,31 +89,7 @@ namespace FaculdadeSI.Controllers
             return View(tipoResposta);
         }
 
-        // GET: TipoResposta/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TipoResposta tipoResposta = db.TipoRespostas.Find(id);
-            if (tipoResposta == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tipoResposta);
-        }
-
-        // POST: TipoResposta/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            TipoResposta tipoResposta = db.TipoRespostas.Find(id);
-            db.TipoRespostas.Remove(tipoResposta);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+     
 
         protected override void Dispose(bool disposing)
         {

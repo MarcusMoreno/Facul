@@ -21,10 +21,6 @@ namespace FaculdadeSI.Controllers
             return View(usuarios.ToList());
         }
 
-
-
-
-
         // GET: Usuario/Details/5
         public ActionResult Details(int? id)
         {
@@ -38,20 +34,17 @@ namespace FaculdadeSI.Controllers
                 return HttpNotFound();
             }
             return View(usuario);
-        
-        
-        
         }
 
         // GET: Usuario/Create
         public ActionResult Create()
         {
-            ViewBag.IdPerfil = new SelectList(db.Perfils.ToList().Where(x => x.PerfilStatus == true).Select(y => y.DescricaoPerfil));
+            //ViewBag.IdPerfil = new SelectList(db.Perfils.ToList().Where(x => x.PerfilStatus == true).Select(y => y.IdPerfil));
+            //ViewBag.IdPerfil = new SelectList(db.Perfils.Where(d => d.PerfilStatus == true), "IdPerfil", "DescricaoPerfil");
+            ViewBag.IdPerfil = new SelectList(db.Perfils, "IdPerfil", "DescricaoPerfil");
 
             return View();
         }
-
-
 
 
         // POST: Usuario/Create
@@ -68,14 +61,11 @@ namespace FaculdadeSI.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.IdPerfil = new SelectList(db.Perfils.ToList().Where(x => x.PerfilStatus == true).Select(y => y.DescricaoPerfil));
+            ViewBag.IdPerfil = new SelectList(db.Perfils, "IdPerfil", "DescricaoPerfil");
 
             return View(usuario);
         }
-
-
-
-
+        
 
         // GET: Usuario/Edit/5
         public ActionResult Edit(int? id)
@@ -90,14 +80,12 @@ namespace FaculdadeSI.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.IdPerfil = new SelectList(db.Perfils.ToList().Where(x => x.PerfilStatus == true).Select(y => y.DescricaoPerfil));
+            ViewBag.IdPerfil = new SelectList(db.Perfils, "IdPerfil", "DescricaoPerfil");
 
             return View(usuario);
         }
 
         // POST: Usuario/EditUsuario/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IdUsuario,Nome,Email,Telefone,IdPerfil,UsuarioStatus,Senha")] Usuario usuario)
@@ -109,36 +97,11 @@ namespace FaculdadeSI.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.IdPerfil = new SelectList(db.Perfils.ToList().Where(x => x.PerfilStatus == true).Select(y => y.DescricaoPerfil));
+            ViewBag.IdPerfil = new SelectList(db.Perfils, "IdPerfil", "DescricaoPerfil");
 
             return View(usuario);
         }
 
-        //// GET: Usuario/Delete/5
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Usuario usuario = db.Usuarios.Find(id);
-        //    if (usuario == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(usuario);
-        //}
-
-        //// POST: Usuario/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    Usuario usuario = db.Usuarios.Find(id);
-        //    db.Usuarios.Remove(usuario);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
 
         protected override void Dispose(bool disposing)
         {

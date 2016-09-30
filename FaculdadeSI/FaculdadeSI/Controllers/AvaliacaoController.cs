@@ -39,9 +39,9 @@ namespace FaculdadeSI.Controllers
         // GET: Avaliacao/Create
         public ActionResult Create()
         {
-            ViewBag.Perguntas = new SelectList(db.Perguntas.ToList().Where(f => f.PerguntaStatus == true).Select(g => g.DescricaoPergunta));
-            ViewBag.IdPerfil = new SelectList(db.Perfils.ToList().Where(f => f.PerfilStatus == true).Select(g => g.DescricaoPerfil));
-            ViewBag.IdUsuario = new SelectList(db.Usuarios.ToList().Where(f => f.UsuarioStatus == true).Select(g => g.Nome));
+            ViewBag.Perguntas = new SelectList(db.Perguntas, "IdPergunta", "DescricaoPergunta");
+            ViewBag.IdPerfil = new SelectList(db.Perfils, "IdPerfil", "DescricaoPerfil");
+            ViewBag.IdUsuario = new SelectList(db.Usuarios, "IdUsuario", "Nome");
                
             return View();
         }
@@ -58,9 +58,9 @@ namespace FaculdadeSI.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Perguntas = new SelectList(db.Perguntas.ToList().Where(f => f.PerguntaStatus == true).Select(g => g.DescricaoPergunta));
-            ViewBag.IdPerfil = new SelectList(db.Perfils.ToList().Where(f => f.PerfilStatus == true).Select(g => g.DescricaoPerfil));
-            ViewBag.IdUsuario = new SelectList(db.Usuarios.ToList().Where(f => f.UsuarioStatus == true).Select(g => g.Nome));
+            ViewBag.Perguntas = new SelectList(db.Perguntas, "IdPergunta", "DescricaoPergunta");
+            ViewBag.IdPerfil = new SelectList(db.Perfils, "IdPerfil", "DescricaoPerfil");
+            ViewBag.IdUsuario = new SelectList(db.Usuarios, "IdUsuario", "Nome");
 
             return View(avaliacao);
         }
@@ -87,10 +87,10 @@ namespace FaculdadeSI.Controllers
             {
                 return HttpNotFound();
             }
-        
-            ViewBag.Perguntas = new SelectList(db.Perguntas.ToList().Where(f => f.PerguntaStatus == true).Select(g => g.DescricaoPergunta));
-            ViewBag.IdPerfil = new SelectList(db.Perfils.ToList().Where(f => f.PerfilStatus == true).Select(g => g.DescricaoPerfil));
-            ViewBag.IdUsuario = new SelectList(db.Usuarios.ToList().Where(f => f.UsuarioStatus == true).Select(g => g.Nome));
+
+            ViewBag.Perguntas = new SelectList(db.Perguntas, "IdPergunta", "DescricaoPergunta");
+            ViewBag.IdPerfil = new SelectList(db.Perfils, "IdPerfil", "DescricaoPerfil");
+            ViewBag.IdUsuario = new SelectList(db.Usuarios, "IdUsuario", "Nome");
 
             return View(avaliacao);
         }
@@ -107,8 +107,8 @@ namespace FaculdadeSI.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.IdPerfil = new SelectList(db.Perfils.ToList().Where(f => f.PerfilStatus == true).Select(g => g.DescricaoPerfil));
-            ViewBag.IdUsuario = new SelectList(db.Usuarios.ToList().Where(f => f.UsuarioStatus == true).Select(g => g.Nome));
+            ViewBag.IdPerfil = new SelectList(db.Perfils, "IdPerfil", "DescricaoPerfil");
+            ViewBag.IdUsuario = new SelectList(db.Usuarios, "IdUsuario", "Nome");
             
             return View(avaliacao);
         }

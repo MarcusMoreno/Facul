@@ -183,31 +183,7 @@ namespace FaculdadeSI.Controllers
             return View(pergunta);
         }
 
-        //// GET: Pergunta/Delete/5
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Pergunta pergunta = db.Perguntas.Find(id);
-        //    if (pergunta == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(pergunta);
-        //}
-
-        //// POST: Pergunta/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    Pergunta pergunta = db.Perguntas.Find(id);
-        //    db.Perguntas.Remove(pergunta);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
+     
 
         protected override void Dispose(bool disposing)
         {

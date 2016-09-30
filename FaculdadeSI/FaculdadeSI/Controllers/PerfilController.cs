@@ -38,15 +38,15 @@ namespace FaculdadeSI.Controllers
             return View(perfil);
         }
 
+
         // GET: Perfil/Create
         public ActionResult Create()
         {
             return View();
         }
 
+
         // POST: Perfil/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IdPerfil,DescricaoPerfil,PerfilStatus")] Perfil perfil)
@@ -77,9 +77,8 @@ namespace FaculdadeSI.Controllers
             return View(perfil);
         }
 
+
         // POST: Perfil/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IdPerfil,DescricaoPerfil,PerfilStatus")] Perfil perfil)
@@ -93,33 +92,8 @@ namespace FaculdadeSI.Controllers
             return View(perfil);
         }
 
-        // GET: Perfil/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Perfil perfil = db.Perfils.Find(id);
-            if (perfil == null)
-            {
-                return HttpNotFound();
-            }
-            return View(perfil);
-        }
 
-        // POST: Perfil/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Perfil perfil = db.Perfils.Find(id);
-            db.Perfils.Remove(perfil);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
+          protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
