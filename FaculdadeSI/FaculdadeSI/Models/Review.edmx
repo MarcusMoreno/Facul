@@ -11,7 +11,8 @@
           </Key>
           <Property Name="IdAvaliacao" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DescricaoAvaliacao" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Expiracao" Type="date" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="EndDate" Type="date" />
           <Property Name="Titulo" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="IdUsuario" Type="int" Nullable="false" />
           <Property Name="IdPerfil" Type="int" Nullable="false" />
@@ -276,7 +277,8 @@
           </Key>
           <Property Name="IdAvaliacao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DescricaoAvaliacao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Expiracao" Type="DateTime" Precision="0" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
           <Property Name="Titulo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IdUsuario" Type="Int32" Nullable="false" />
           <Property Name="IdPerfil" Type="Int32" Nullable="false" />
@@ -563,7 +565,8 @@
               <MappingFragment StoreEntitySet="Avaliacao">
                 <ScalarProperty Name="IdAvaliacao" ColumnName="IdAvaliacao" />
                 <ScalarProperty Name="DescricaoAvaliacao" ColumnName="DescricaoAvaliacao" />
-                <ScalarProperty Name="Expiracao" ColumnName="Expiracao" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
                 <ScalarProperty Name="Titulo" ColumnName="Titulo" />
                 <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
                 <ScalarProperty Name="IdPerfil" ColumnName="IdPerfil" />

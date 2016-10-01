@@ -11,6 +11,14 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.LabelFor(model => model.Titulo, "Título")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Titulo)
+        </dd>
+        
+        <dt>
             @Html.LabelFor(model => model.DescricaoAvaliacao, "Descrição")
         </dt>
 
@@ -19,19 +27,19 @@
         </dd>
 
         <dt>
-            @Html.LabelFor(model => model.Expiracao,"Expira em")
+            @Html.LabelFor(model => model.StartDate,"Data inicial")
         </dt>
-
+        
         <dd>
-            @Html.DisplayFor(model => model.Expiracao)
+            @Html.DisplayFor(model => model.StartDate)
         </dd>
 
         <dt>
-            @Html.LabelFor(model => model.Titulo, "Título")
+            @Html.LabelFor(model => model.EndDate, "Data Final")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Titulo)
+            @Html.DisplayFor(model => model.EndDate)
         </dd>
 
         <dt>

@@ -13,17 +13,21 @@
 <table class="table">
     <tr>
         <th>
+            @Html.Label("Título")
+            @*@Html.DisplayNameFor(model => model.Titulo)*@
+        </th>
+        <th>
             @Html.Label("Descrição")
             @*@Html.DisplayNameFor(model => model.DescricaoAvaliacao)*@
         </th>
         <th>
-            @Html.Label("Expira em:")
+            @Html.Label("Data Inicial")
             @*@Html.DisplayNameFor(model => model.Expiracao)*@
         </th>
         <th>
-            @Html.Label("Título")
-            @*@Html.DisplayNameFor(model => model.Titulo)*@
-        </th>
+            @Html.Label("Data Final")
+            @*@Html.DisplayNameFor(model => model.Expiracao)*@
+        </th>       
         <th>
             @Html.Label("Status")
             @*@Html.DisplayNameFor(model => model.AvaliacaoStatus)*@
@@ -42,13 +46,16 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.Titulo)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.DescricaoAvaliacao)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Expiracao)
+            @Html.DisplayFor(modelItem => item.StartDate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Titulo)
+            @Html.DisplayFor(modelItem => item.EndDate)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.AvaliacaoStatus)

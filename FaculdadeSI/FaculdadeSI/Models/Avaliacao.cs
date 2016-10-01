@@ -11,6 +11,8 @@ namespace FaculdadeSI.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Avaliacao
     {
@@ -22,11 +24,31 @@ namespace FaculdadeSI.Models
         }
     
         public int IdAvaliacao { get; set; }
-        public string DescricaoAvaliacao { get; set; }
-        public Nullable<DateTime> Expiracao { get; set; }
+
+        //[Required]
+        //[DisplayName("Título da avaliação")]
         public string Titulo { get; set; }
+
+        public string DescricaoAvaliacao { get; set; }
+        
+        //[Required]
+        //[DisplayName("Data inicial")]
+        public Nullable<DateTime> StartDate { get; set; }
+
+        //[Required]
+        //[DisplayName("Data final")]
+        public Nullable<DateTime> EndDate { get; set; }
+
+        //[Required]
+        //[DisplayName("Criador")]
         public int IdUsuario { get; set; }
+
+        //[Required]
+        //[DisplayName("Perfil")]
         public int IdPerfil { get; set; }
+
+        //[Required]
+        //[DisplayName("Status")]
         public Nullable<bool> AvaliacaoStatus { get; set; }
 
 
@@ -39,6 +61,6 @@ namespace FaculdadeSI.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AvaliacaoResposta> AvaliacaoRespostas { get; set; }
 
-        public List<Pergunta> Perguntas { get; set; }
+        public virtual List<Pergunta> Pergunta { get; set; }
     }
 }
