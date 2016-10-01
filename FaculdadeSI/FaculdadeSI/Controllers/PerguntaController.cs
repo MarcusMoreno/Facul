@@ -49,6 +49,7 @@ namespace FaculdadeSI.Controllers
         public ActionResult Create()
         {
             ViewBag.TipoResposta = new SelectList(db.TipoRespostas.ToList().Where(x => x.TipoRespostaStatus == true).Select(g => g.DescricaoTipoResposta));
+            
                     
             return View();
         }
@@ -60,11 +61,16 @@ namespace FaculdadeSI.Controllers
         {
             if (ModelState.IsValid)
             {
-                //pergunta.TipoResposta.Add(ViewBag.TipoResposta);
-                db.Perguntas.Add(pergunta);
-
                 //Cria uma lista do que foi passado no dorpdown
                 var listaTipoRespostaRequest = form["TipoResposta"].Split(',').ToList();
+                
+                //Se a paergunta tiver menos que 5 opçoes de resposta, será cadastrada como inativa
+                if(listaTipoRespostaRequest.Count < 5)
+                {
+                    pergunta.PerguntaStatus = false;
+                }
+                //pergunta.TipoResposta.Add(ViewBag.TipoResposta);
+                db.Perguntas.Add(pergunta);
 
                 //Lista dos Tipo de resposta que existem no banco
                 var listaTipoRespostaBd = db.TipoRespostas.ToList();
@@ -117,7 +123,8 @@ namespace FaculdadeSI.Controllers
             //     .Join(db.TipoRespostas, j => j.IdtipoResposta, k => k.IdTipoResposta, (j, k) => new { j, k }).Where(x => x.j.IdPergunta == id)
             //     .Join(db.Perguntas, a => a.j.IdPergunta, b => b.IdPergunta, (a, b) => new { a, b }).Select(s => new SelectListItem { Value = s.a.j.IdtipoResposta.ToString(), Text = s.a.k.DescricaoTipoResposta });
 
-            ViewBag.TipoResposta = new SelectList(db.TipoRespostas.ToList().Where(x => x.TipoRespostaStatus == true).Select(g => g.DescricaoTipoResposta));
+            //ViewBag.TipoResposta = new SelectList(db.TipoRespostas.ToList().Where(x => x.TipoRespostaStatus == true), "IdTipoResposta", "DescricaoTipoResposta");
+            ViewBag.TipoResposta = new SelectList(db.TipoRespostas.ToList().Where(x => x.TipoRespostaStatus == true).Select( Y => Y.DescricaoTipoResposta));
 
             //Lista dos Tipo de resposta que existem no banco
             //var doisjoin2 = db.TipoRespostas.Select(s => new SelectListItem { Value = s.IdTipoResposta.ToString(), Text = s.DescricaoTipoResposta });
@@ -149,6 +156,11 @@ namespace FaculdadeSI.Controllers
 
                 //Cria uma lista do que foi passado no dropdown
                 var listaTipoRespostaRequest = form["TipoResposta"].Split(',').ToList();
+
+                if (listaTipoRespostaRequest.Count < 5)
+                {
+                    pergunta.PerguntaStatus = false;
+                }
 
                 //Apaga da tabela associativa os registros referentes aquela pergunta
                 foreach (var item in db.PerguntaTipoRespostas.Where(f => f.IdPergunta == pergunta.IdPergunta))

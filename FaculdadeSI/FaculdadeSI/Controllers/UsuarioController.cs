@@ -39,10 +39,8 @@ namespace FaculdadeSI.Controllers
         // GET: Usuario/Create
         public ActionResult Create()
         {
-            //ViewBag.IdPerfil = new SelectList(db.Perfils.ToList().Where(x => x.PerfilStatus == true).Select(y => y.IdPerfil));
-            //ViewBag.IdPerfil = new SelectList(db.Perfils.Where(d => d.PerfilStatus == true), "IdPerfil", "DescricaoPerfil");
-            ViewBag.IdPerfil = new SelectList(db.Perfils, "IdPerfil", "DescricaoPerfil");
-
+            ViewBag.IdPerfil = new SelectList(db.Perfils.ToList().Where(x => x.PerfilStatus == true), "IdPerfil", "DescricaoPerfil");
+    
             return View();
         }
 
@@ -80,7 +78,7 @@ namespace FaculdadeSI.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.IdPerfil = new SelectList(db.Perfils, "IdPerfil", "DescricaoPerfil");
+            ViewBag.IdPerfil = new SelectList(db.Perfils.ToList().Where(x => x.PerfilStatus == true), "IdPerfil", "DescricaoPerfil");
 
             return View(usuario);
         }
