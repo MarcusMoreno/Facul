@@ -36,21 +36,21 @@ using System.Web.Mvc;
 
 
 
-        public Perfil GetDetailsPerfil(int id)
-        {
-            //Perfil perfil = new Perfil();
-            if (id == null)
-            {
-                throw new KeyNotFoundException();
-            }
-            Perfil perfil = db.Perfils.Find(id);
+        //public Perfil GetDetailsPerfil(int id)
+        //{
+        //    //Perfil perfil = new Perfil();
+        //    if (id == null)
+        //    {
+        //        throw new KeyNotFoundException();
+        //    }
+        //    Perfil perfil = db.Perfils.Find(id);
            
-            if (perfil == null)
-            {
-                throw new KeyNotFoundException();
-            }
+        //    if (perfil == null)
+        //    {
+        //        throw new KeyNotFoundException();
+        //    }
 
-            return perfil;
-        }
+        //    return perfil;
+        //}
     }
 }

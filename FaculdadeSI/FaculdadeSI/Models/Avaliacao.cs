@@ -28,13 +28,17 @@ namespace FaculdadeSI.Models
         public int IdUsuario { get; set; }
         public int IdPerfil { get; set; }
         public Nullable<bool> AvaliacaoStatus { get; set; }
-        public List<Pergunta> Perguntas { get; set; }
-    
+
+
         public virtual Perfil Perfil { get; set; }
         public virtual Usuario Usuario { get; set; }
+
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AvaliacaoPergunta> AvaliacaoPerguntas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AvaliacaoResposta> AvaliacaoRespostas { get; set; }
+
+        public List<Pergunta> Perguntas { get; set; }
     }
 }

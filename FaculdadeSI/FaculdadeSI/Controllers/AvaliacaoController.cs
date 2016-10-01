@@ -39,7 +39,8 @@ namespace FaculdadeSI.Controllers
         // GET: Avaliacao/Create
         public ActionResult Create()
         {
-            ViewBag.Perguntas = new SelectList(db.Perguntas, "IdPergunta", "DescricaoPergunta");
+            //ViewBag.Perguntas = new SelectList(db.Perguntas, "IdPergunta", "DescricaoPergunta");
+            ViewBag.Perguntas = new SelectList(db.Perguntas.ToList().Where(x => x.PerguntaStatus == true).Select(g => g.DescricaoPergunta));
             ViewBag.IdPerfil = new SelectList(db.Perfils, "IdPerfil", "DescricaoPerfil");
             ViewBag.IdUsuario = new SelectList(db.Usuarios, "IdUsuario", "Nome");
                
@@ -49,18 +50,39 @@ namespace FaculdadeSI.Controllers
         // POST: Avaliacao/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdAvaliacao,DescricaoAvaliacao,Expiracao,Titulo,IdUsuario,IdPerfil,AvaliacaoStatus")] Avaliacao avaliacao)
+        public ActionResult Create(Avaliacao avaliacao, FormCollection form)
         {
             if (ModelState.IsValid)
             {
                 db.Avaliacaos.Add(avaliacao);
+
+                //Cria uma lista do que foi passado no dorpdown
+                var listaPerguntasRequest= form["TipoResposta"].Split(',').ToList();
+
+                //Lista das perguntas que existem no banco
+                var listaPerguntasBd = db.Perguntas.ToList();
+
+                //Para cada pergunta enviada na avaliacao, inseri na tabela AvaliacaòPergunta
+                foreach (var item in listaPerguntasRequest)
+                {
+                    //PEga objeto no db.TipoResposta que seja igual a item
+                    var descPergunta = listaPerguntasBd.FirstOrDefault(f => f.DescricaoPergunta == item);
+
+                    AvaliacaoPergunta avaliacaoPergunta = new AvaliacaoPergunta();
+                    avaliacaoPergunta.IdAvaliacao = avaliacao.IdAvaliacao;
+                    avaliacaoPergunta.IdPergunta = descPergunta.IdPergunta;
+
+                    //Adiciona no banco
+                    db.AvaliacaoPerguntas.Add(avaliacaoPergunta);
+                }    
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Perguntas = new SelectList(db.Perguntas, "IdPergunta", "DescricaoPergunta");
-            ViewBag.IdPerfil = new SelectList(db.Perfils, "IdPerfil", "DescricaoPerfil");
-            ViewBag.IdUsuario = new SelectList(db.Usuarios, "IdUsuario", "Nome");
+            //ViewBag.Perguntas = new SelectList(db.Perguntas, "IdPergunta", "DescricaoPergunta");
+            //ViewBag.IdPerfil = new SelectList(db.Perfils, "IdPerfil", "DescricaoPerfil");
+            //ViewBag.IdUsuario = new SelectList(db.Usuarios, "IdUsuario", "Nome");
 
             return View(avaliacao);
         }

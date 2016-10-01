@@ -20,7 +20,9 @@
             @Html.Label("Status")
             @*@Html.DisplayNameFor(model => model.PerguntaStatus)*@
         </th>
-        <th></th>
+        @*<th>
+            @Html.Label("Respostas")
+        </th>*@
     </tr>
 
 @foreach (var item in Model) {
@@ -31,6 +33,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.PerguntaStatus)
         </td>
+        @*<td>
+           @Html.DisplayFor("ListaTipoRespostas")
+        </td>*@
        <td>
             <div>
                 <button class="btn btn-warning pull-right" style="width:90px">@Html.ActionLink("Editar", "Edit", new { id = item.IdPergunta })</button>

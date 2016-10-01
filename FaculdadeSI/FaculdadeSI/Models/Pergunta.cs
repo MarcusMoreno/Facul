@@ -27,6 +27,8 @@ namespace FaculdadeSI.Models
         public string DescricaoPergunta { get; set; }
         public Nullable<bool> PerguntaStatus { get; set; }
 
+
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AvaliacaoPergunta> AvaliacaoPerguntas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
