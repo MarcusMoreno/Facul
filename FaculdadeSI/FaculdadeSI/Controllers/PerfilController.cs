@@ -55,6 +55,7 @@ namespace FaculdadeSI.Controllers
             {
                 db.Perfils.Add(perfil);
                 db.SaveChanges();
+                
                 return RedirectToAction("Index");
             }
 

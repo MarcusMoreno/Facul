@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FaculdadeSI.Models;
+using System.Net.Mail;
 
 namespace FaculdadeSI.Controllers
 {
@@ -42,7 +43,7 @@ namespace FaculdadeSI.Controllers
             ViewBag.Perguntas = new SelectList(db.Perguntas.ToList().Where(x => x.PerguntaStatus == true).Select(g => g.DescricaoPergunta));
             ViewBag.IdPerfil = new SelectList(db.Perfils, "IdPerfil", "DescricaoPerfil");
             ViewBag.IdUsuario = new SelectList(db.Usuarios, "IdUsuario", "Nome");
-               
+
             return View();
         }
 
@@ -56,7 +57,7 @@ namespace FaculdadeSI.Controllers
                 //Cria uma lista do que foi passado no dorpdown
                 var listaPerguntasRequest = form["Perguntas"].Split(',').ToList();
 
-                if(listaPerguntasRequest.Count < 5)
+                if (listaPerguntasRequest.Count < 5)
                 {
                     avaliacao.AvaliacaoStatus = false;
                 }
@@ -78,12 +79,12 @@ namespace FaculdadeSI.Controllers
 
                     //Adiciona no banco
                     db.AvaliacaoPerguntas.Add(avaliacaoPergunta);
-                }    
+                }
 
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            
+
             return View(avaliacao);
         }
 
@@ -109,11 +110,44 @@ namespace FaculdadeSI.Controllers
             if (avaliacao == null)
             {
                 return HttpNotFound();
-            }           
+            }
 
             return View(avaliacao);
         }
 
+
+        public ActionResult Edit2(int idPerfil, int idAvaliacao)
+        {
+            if (idPerfil == null  || idAvaliacao < 0) //Mudar
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //Envia emails
+            var t = SendedEmails(idPerfil, idAvaliacao);
+
+            //List<string> listaEmails = db.Usuarios.Where(x => x.IdPerfil == idPerfil).Select(y => y.Email).ToList();
+
+            List<string> lista56 = new List<string>();
+
+            foreach( var item in db.Usuarios.Where(x => x.IdPerfil == idPerfil) )
+            {
+                lista56.Add(item.Email);
+            }
+            
+            ViewBag.Emails = new SelectList(lista56);
+
+            //ViewBag.Perguntas = new SelectList(db.Perguntas.ToList().Where(x => x.PerguntaStatus == true).Select(g => g.DescricaoPergunta));
+            //ViewBag.IdPerfil = new SelectList(db.Perfils, "IdPerfil", "DescricaoPerfil");
+            //ViewBag.IdUsuario = new SelectList(db.Usuarios, "IdUsuario", "Nome");
+
+            Avaliacao avaliacao = db.Avaliacaos.Find(idAvaliacao);
+            if (avaliacao == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(avaliacao);
+        }
 
         // POST: Avaliacao/Edit/5
         [HttpPost]
@@ -133,7 +167,7 @@ namespace FaculdadeSI.Controllers
                 }
 
                 //Lista das perguntas que existem no banco
-                var listaPerguntasBd = db.Perguntas.ToList();                
+                var listaPerguntasBd = db.Perguntas.ToList();
 
                 //Apaga da tabela associativa os registros referentes aquela avaliacao
                 foreach (var item in db.AvaliacaoPerguntas.Where(f => f.IdAvaliacao == avaliacao.IdAvaliacao))
@@ -161,8 +195,7 @@ namespace FaculdadeSI.Controllers
             }
             return View(avaliacao);
         }
-        
-         
+
 
         protected override void Dispose(bool disposing)
         {
@@ -172,5 +205,22 @@ namespace FaculdadeSI.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+        public bool SendedEmails(int idPerfil, int idAvaliacao)
+        {
+            //Cria lista de e-mails
+            List<string> emails = new List<string>();
+
+            //Adiciona todos email dos usuarios que possuam aquele perfil
+            foreach (var item in db.Usuarios.Where(f => f.IdPerfil == idPerfil))
+            {
+                emails.Add(item.Email);
+            }
+
+            var response = Models.Email.SendedEmail(emails);
+            return response;
+        }
+
     }
 }

@@ -20,14 +20,12 @@
             @Html.Label("Descrição")
             @*@Html.DisplayNameFor(model => model.DescricaoAvaliacao)*@
         </th>
-        <th>
+        @*<th>
             @Html.Label("Data Inicial")
-            @*@Html.DisplayNameFor(model => model.Expiracao)*@
         </th>
         <th>
             @Html.Label("Data Final")
-            @*@Html.DisplayNameFor(model => model.Expiracao)*@
-        </th>       
+        </th>*@     
         <th>
             @Html.Label("Status")
             @*@Html.DisplayNameFor(model => model.AvaliacaoStatus)*@
@@ -51,12 +49,12 @@
         <td>
             @Html.DisplayFor(modelItem => item.DescricaoAvaliacao)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.StartDate)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.EndDate)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.AvaliacaoStatus)
         </td>

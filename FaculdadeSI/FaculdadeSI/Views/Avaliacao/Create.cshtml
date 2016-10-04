@@ -42,7 +42,7 @@
             </div>
         </div>
          
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.StartDate, "Data Inicial", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @required = "required", @class = "datefield", @id = "datetimepicker2" } })
@@ -55,7 +55,7 @@
                 @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @required = "required", @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
         <div class="form-group">
             @Html.LabelFor(model => model.IdUsuario, "Criador", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">

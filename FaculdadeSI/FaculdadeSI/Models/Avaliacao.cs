@@ -14,7 +14,7 @@ namespace FaculdadeSI.Models
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     
-    public partial class Avaliacao
+    public class Avaliacao
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Avaliacao()
@@ -62,5 +62,10 @@ namespace FaculdadeSI.Models
         public virtual ICollection<AvaliacaoResposta> AvaliacaoRespostas { get; set; }
 
         public virtual List<Pergunta> Pergunta { get; set; }
+
+
+
+
+
     }
 }

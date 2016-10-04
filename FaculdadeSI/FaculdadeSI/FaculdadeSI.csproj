@@ -181,6 +181,7 @@
     <Compile Include="Models\AvaliacaoResposta.cs">
       <DependentUpon>Review.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Email.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Perfil.cs">
@@ -393,6 +394,7 @@
     <Content Include="Views\Avaliacao\Details.cshtml" />
     <Content Include="Views\Avaliacao\Edit.cshtml" />
     <Content Include="Views\Avaliacao\Index.cshtml" />
+    <Content Include="Views\Avaliacao\Edit2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
