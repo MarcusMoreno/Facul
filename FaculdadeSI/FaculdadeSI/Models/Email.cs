@@ -39,7 +39,7 @@ namespace FaculdadeSI.Models
                     email.From = fromAddress;
                     email.To.Add(item);
                     email.Subject = "Título";
-                    email.Body = "Corpo";
+                    email.Body = "Link da avaliação para responder";
 
                     smtp.Send(email);
                 }
