@@ -6,78 +6,69 @@
 
 <h2>Detalhes avaliação</h2>
 
-<div>
-    @*<h4>Avaliacao</h4>*@
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.LabelFor(model => model.Titulo, "Título")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Titulo)
-        </dd>
+    <div class="form-horizontal">
         
-        <dt>
-            @Html.LabelFor(model => model.DescricaoAvaliacao, "Descrição")
-        </dt>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.IdAvaliacao)
 
-        <dd>
-            @Html.DisplayFor(model => model.DescricaoAvaliacao)
-        </dd>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Titulo, "Título", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Titulo)
+            </div>
+        </div>
 
-        @*<dt>
-            @Html.LabelFor(model => model.StartDate,"Data inicial")
-        </dt>
-        
-        <dd>
-            @Html.DisplayFor(model => model.StartDate)
-        </dd>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DescricaoAvaliacao, "Descrição da avaliação", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.DescricaoAvaliacao)
+            </div>
+        </div>
 
-        <dt>
-            @Html.LabelFor(model => model.EndDate, "Data Final")
-        </dt>
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.IdUsuario, "Criador", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Usuario.Nome)
+            </div>
+        </div>*@
 
-        <dd>
-            @Html.DisplayFor(model => model.EndDate)
-        </dd>*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdPerfil, "Perfil", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Perfil.DescricaoPerfil)             
+            </div>
+        </div>
 
-        <dt>
-            @Html.LabelFor(model => model.AvaliacaoStatus,"Status")
-        </dt>
+        <div class="form-group">
+            @Html.LabelFor(model => model.AvaliacaoStatus, "Status", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.AvaliacaoStatus)               
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.AvaliacaoStatus)
-        </dd>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Pergunta, "Perguntas", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Perguntas", null, new {multiple = "multiple", @id = "pergunta", @class = "form-control" })                
+            </div>
+        </div>
 
-        <dt>
-            @Html.LabelFor(model => model.Perfil.DescricaoPerfil, "Perfil")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Perfil.DescricaoPerfil)
-        </dd>
-
-        <dt>
-            @Html.LabelFor(model => model.Usuario.Nome, "Criador")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Usuario.Nome)
-        </dd>
-
-    </dl>
-</div>
-@*<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IdAvaliacao }) |
-    @Html.ActionLink("Voltar", "Index")
-</p>*@
+      </div>
+}
 
 <div>
-    <p>
-        <button class="btn" style="width:90px">@Html.ActionLink("Voltar", "Index")</button> 
-        <button class="btn btn-warning pull-right" style="width:90px"><i class="glyphicon glyphicon-edit"></i>@Html.ActionLink("Editar", "Edit", new { id = Model.IdAvaliacao })</button>
-        <button class="btn btn-success pull-right" style="width:90px" ><i class="glyphicon glyphicon-envelope"></i>@Html.ActionLink("Enviar", "Edit2", new { idPerfil = Model.IdPerfil, idAvaliacao = Model.IdAvaliacao })</button>
+
+    <p>  
+        
+       
+        <button class="btn" style="width:90px">@Html.ActionLink("Voltar", "Index")</button>     
+        @*<button class="btn btn-warning pull-right" style="width:90px"><i class="glyphicon glyphicon-edit"></i><span>@Html.ActionLink("Editar", "Edit", new { idAvaliacao = Model.IdAvaliacao })</button>*@
+        <button class="btn btn-warning pull-right" style="width:90px"><i class="glyphicon glyphicon-edit"></i><span>@Html.ActionLink("Editar", "Edit", new { id = Model.IdAvaliacao }) </span></button>
+        <button class="btn btn-success pull-right" style="width:90px" ><i class="glyphicon glyphicon-envelope"></i><span>@Html.ActionLink("Enviar", "Sent", new { idPerfil = Model.IdPerfil, idAvaliacao = Model.IdAvaliacao })</span></button>
 
        </p>
 </div>

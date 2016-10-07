@@ -4,12 +4,11 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Perguntas</h2>
 
-<p>
-    <div> <a class="btn btn-success pull-right" ui-sref="affiliate({ id: 'new' })" href="~/Pergunta/Create"><i class="glyphicon glyphicon-plus"></i> <span>Nova pergunta</span></a>  </div>
-   
-</p>
+<div class="page-header clearfix">
+    <h4 class="pull-left"><i class="glyphicon glyphicon-list"></i> Perguntas</h4><a href="~/Pergunta/Create" class="btn btn-success pull-right"><i class="glyphicon glyphicon-plus"></i> <span>Nova pergunta</span></a>
+</div>
+
 <table class="table">
     <tr>
         <th>
@@ -23,6 +22,7 @@
         @*<th>
             @Html.Label("Respostas")
         </th>*@
+        <th></th>
     </tr>
 
 @foreach (var item in Model) {
@@ -38,8 +38,20 @@
         </td>*@
        <td>
             <div>
-                <button class="btn btn-warning pull-right" style="width:90px">@Html.ActionLink("Editar", "Edit", new { id = item.IdPergunta })</button>
-                <button class="btn btn-info pull-right" style="width:90px">@Html.ActionLink("Detalhes", "Details", new { id = item.IdPergunta })</button>
+
+                <table class="navbar-right" border="0" >
+                    <tr>
+                        <td>
+                            <button class="btn btn-warning pull-right" style="width:90px">@Html.ActionLink("Editar", "Edit", new { id = item.IdPergunta })</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-info pull-right" style="width:90px">@Html.ActionLink("Detalhes", "Details", new { id = item.IdPergunta })</button>
+                        </td>
+                    </tr>
+                </table>
+
+                @*<button class="btn btn-warning pull-right" style="width:90px">@Html.ActionLink("Editar", "Edit", new { id = item.IdPergunta })</button>
+                <button class="btn btn-info pull-right" style="width:90px">@Html.ActionLink("Detalhes", "Details", new { id = item.IdPergunta })</button>*@
             </div>
         </td>
     </tr>

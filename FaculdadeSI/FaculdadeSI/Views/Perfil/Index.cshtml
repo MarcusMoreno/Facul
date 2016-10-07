@@ -4,9 +4,12 @@
     ViewBag.Title = "Perfil";
 }
 
-<h2>Perfis</h2>
 
-<div> <a class="btn btn-success pull-right" ui-sref="affiliate({ id: 'new' })" href="~/Perfil/Create"><i class="glyphicon glyphicon-plus"></i> <span>Novo perfil</span></a>  </div>
+<div class="page-header clearfix">
+
+    <h4 class="pull-left"><i class="glyphicon glyphicon-list"></i> Perfis</h4><a href="~/Perfil/Create" class="btn btn-success pull-right"><i class="glyphicon glyphicon-plus"></i> <span>Novo Perfil</span></a>
+
+</div>
 
 <table class="table">
     <tr>
@@ -30,8 +33,20 @@
 
         <td>
             <div>
-                <button class="btn btn-warning pull-right" style="width:90px">@Html.ActionLink("Editar", "Edit", new { id = item.IdPerfil })</button>
-                <button class="btn btn-info pull-right" style="width:90px">@Html.ActionLink("Detalhes", "Details", new { id = item.IdPerfil })</button>
+                
+                <table class="navbar-right" border="0">
+                    <tr>
+                        <td>
+                            <button class="btn btn-warning pull-right" style="width:90px">@Html.ActionLink("Editar", "Edit", new { id = item.IdPerfil })</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-info pull-right" style="width:90px">@Html.ActionLink("Detalhes", "Details", new { id = item.IdPerfil })</button>
+                        </td>
+                    </tr>
+                </table>
+
+                @*<button class="btn btn-warning pull-right" style="width:90px">@Html.ActionLink("Editar", "Edit", new { id = item.IdPerfil })</button>
+                <button class="btn btn-info pull-right" style="width:90px">@Html.ActionLink("Detalhes", "Details", new { id = item.IdPerfil })</button>*@
             </div>
         </td>
 

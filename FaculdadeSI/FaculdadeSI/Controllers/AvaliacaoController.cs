@@ -22,6 +22,13 @@ namespace FaculdadeSI.Controllers
             return View(avaliacaos.ToList());
         }
 
+        public ActionResult Created()
+        {
+            var avaliacaos = db.Avaliacaos.Include(a => a.Perfil).Include(a => a.Usuario);
+            return View(avaliacaos.ToList());
+        }
+
+
         // GET: Avaliacao/Details/5
         public ActionResult Details(int? id)
         {
@@ -30,12 +37,22 @@ namespace FaculdadeSI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Avaliacao avaliacao = db.Avaliacaos.Find(id);
+
+            //Lista de perugntas que pertencem a avaliacao
+            var listPerguntasJoin = db.AvaliacaoPerguntas
+                   .Join(db.Perguntas, j => j.IdPergunta, k => k.IdPergunta, (j, k) => new { j, k }).Where(x => x.j.IdAvaliacao == id)
+                   .Join(db.Avaliacaos, a => a.j.IdAvaliacao, b => b.IdAvaliacao, (a, b) => new { a, b }).Select(s => new SelectListItem { Value = s.a.j.IdPergunta.ToString(), Text = s.a.k.DescricaoPergunta });
+
+            //Todas as perguntas
+            ViewBag.Perguntas = listPerguntasJoin.ToList();
+
             if (avaliacao == null)
             {
                 return HttpNotFound();
             }
             return View(avaliacao);
         }
+
 
         // GET: Avaliacao/Create
         public ActionResult Create()
@@ -46,6 +63,7 @@ namespace FaculdadeSI.Controllers
 
             return View();
         }
+
 
         // POST: Avaliacao/Create
         [HttpPost]
@@ -82,7 +100,7 @@ namespace FaculdadeSI.Controllers
                 }
 
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Created");
             }
 
             return View(avaliacao);
@@ -116,7 +134,7 @@ namespace FaculdadeSI.Controllers
         }
 
 
-        public ActionResult Edit2(int idPerfil, int idAvaliacao)
+        public ActionResult Sent(int idPerfil, int idAvaliacao)
         {
             if (idPerfil == null  || idAvaliacao < 0) //Mudar
             {

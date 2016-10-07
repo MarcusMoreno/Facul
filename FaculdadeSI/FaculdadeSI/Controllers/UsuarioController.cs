@@ -21,6 +21,12 @@ namespace FaculdadeSI.Controllers
             return View(usuarios.ToList());
         }
 
+        public ActionResult Created()
+        {
+            var usuarios = db.Usuarios.Include(u => u.Perfil);
+            return View(usuarios.ToList());
+        }
+
         // GET: Usuario/Details/5
         public ActionResult Details(int? id)
         {
@@ -56,7 +62,7 @@ namespace FaculdadeSI.Controllers
             {
                 db.Usuarios.Add(usuario);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Created");
             }
 
             ViewBag.IdPerfil = new SelectList(db.Perfils, "IdPerfil", "DescricaoPerfil");

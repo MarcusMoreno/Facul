@@ -1,0 +1,61 @@
+﻿@model IEnumerable<FaculdadeSI.Models.Perfil>
+
+@{
+    ViewBag.Title = "Created";
+}
+
+<p></p>
+
+<div class="alert alert-success">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    Perfil criado com sucesso!
+</div>
+
+<div class="page-header clearfix">
+    <h4 class="pull-left"><i class="glyphicon glyphicon-list"></i> Perfis</h4><a href="~/Perfil/Create" class="btn btn-success pull-right"><i class="glyphicon glyphicon-plus"></i> <span>Novo Perfil</span></a>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.Label("Descrição do Perfil")
+        </th>
+        <th>
+            @Html.Label("Status")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DescricaoPerfil)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PerfilStatus)
+            </td>
+
+            <td>
+                <div>
+
+                    <table class="navbar-right" border="0">
+                        <tr>
+                            <td>
+                                <button class="btn btn-warning pull-right" style="width:90px">@Html.ActionLink("Editar", "Edit", new { id = item.IdPerfil })</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-info pull-right" style="width:90px">@Html.ActionLink("Detalhes", "Details", new { id = item.IdPerfil })</button>
+                            </td>
+                        </tr>
+                    </table>
+
+                    @*<button class="btn btn-warning pull-right" style="width:90px">@Html.ActionLink("Editar", "Edit", new { id = item.IdPerfil })</button>
+                        <button class="btn btn-info pull-right" style="width:90px">@Html.ActionLink("Detalhes", "Details", new { id = item.IdPerfil })</button>*@
+                </div>
+            </td>
+
+        </tr>
+    }
+
+</table>

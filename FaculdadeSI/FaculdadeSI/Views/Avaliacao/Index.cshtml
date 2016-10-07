@@ -4,13 +4,11 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Avaliações</h2>
+<div class="page-header clearfix">
+    <h4 class="pull-left"><i class="glyphicon glyphicon-list"></i> Avaliações</h4><a href="~/Avaliacao/Create" class="btn btn-success pull-right"><i class="glyphicon glyphicon-plus"></i> <span>Nova avaliação</span></a>
+</div>
 
-<p>
-    <div> <a class="btn btn-success pull-right" ui-sref="affiliate({ id: 'new' })" href="~/Avaliacao/Create"><i class="glyphicon glyphicon-plus"></i> <span>Nova avaliação</span></a>  </div>
-    
-</p>
-<table class="table">
+<table class="table" border="0">
     <tr>
         <th>
             @Html.Label("Título")
@@ -36,7 +34,7 @@
         </th>
         <th>
             @Html.Label("Criador")
-            @*@Html.DisplayNameFor(model => model.Usuario.Nome)*@
+           
         </th>
         <th></th>
     </tr>
@@ -67,8 +65,19 @@
         <td>
 
             <div>
-                <button class="btn btn-warning pull-right" style="width:90px">@Html.ActionLink("Editar", "Edit", new { id = item.IdAvaliacao })</button>
-                <button class="btn btn-info pull-right" style="width:90px">@Html.ActionLink("Detalhes", "Details", new { id = item.IdAvaliacao })</button>
+                <table class="navbar-right" border="0">
+                    <tr>
+                        <td>
+                            <button class="btn btn-warning pull-right" style="width:90px">@Html.ActionLink("Editar", "Edit", new { id = item.IdAvaliacao })</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-info pull-right" style="width:90px">@Html.ActionLink("Detalhes", "Details", new { id = item.IdAvaliacao })</button>
+                        </td>
+                    </tr>
+                </table>
+
+                @*<button class="btn btn-warning pull-right" style="width:90px">@Html.ActionLink("Editar", "Edit", new { id = item.IdAvaliacao })</button>
+                <button class="btn btn-info pull-right" style="width:90px">@Html.ActionLink("Detalhes", "Details", new { id = item.IdAvaliacao })</button>*@
             </div>
                      
         </td>

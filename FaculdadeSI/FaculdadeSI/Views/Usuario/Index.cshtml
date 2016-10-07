@@ -4,11 +4,13 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Usuários</h2>
 
-<p>
-    <div> <a class="btn btn-success pull-right" ui-sref="affiliate({ id: 'new' })" href="~/Usuario/Create"><i class="glyphicon glyphicon-plus"></i> <span>Novo usuário</span></a>  </div>
- </p>
+<div class="page-header clearfix">
+
+    <h4 class="pull-left"><i class="glyphicon glyphicon-list"></i> Usuários</h4><a href="~/Usuario/Create" class="btn btn-success pull-right"><i class="glyphicon glyphicon-plus"></i> <span>Novo Usuário</span></a>
+
+</div>
+
 <table class="table">
     <tr>
         <th>
@@ -57,8 +59,21 @@
         </td>
         <td>
             <div>
-                <button class="btn btn-warning pull-right" style="width:90px">@Html.ActionLink("Editar", "Edit", new { id = item.IdUsuario })</button>
-                <button class="btn btn-info pull-right" style="width:90px">@Html.ActionLink("Detalhes", "Details", new { id = item.IdUsuario })</button>
+
+                <table class="navbar-right" border="0">
+                    <tr>
+                        <td>
+                            <button class="btn btn-warning pull-right" style="width:90px">@Html.ActionLink("Editar", "Edit", new { id = item.IdUsuario })</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-info pull-right" style="width:90px">@Html.ActionLink("Detalhes", "Details", new { id = item.IdUsuario })</button>
+                        </td>
+                    </tr>
+                </table>
+
+
+                @*<button class="btn btn-warning pull-right" style="width:90px">@Html.ActionLink("Editar", "Edit", new { id = item.IdUsuario })</button>
+                <button class="btn btn-info pull-right" style="width:90px">@Html.ActionLink("Detalhes", "Details", new { id = item.IdUsuario })</button>*@
             </div>
         </td>
     </tr>

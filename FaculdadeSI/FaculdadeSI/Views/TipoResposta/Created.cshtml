@@ -1,0 +1,57 @@
+﻿@model IEnumerable<FaculdadeSI.Models.TipoResposta>
+
+@{
+    ViewBag.Title = "Created";
+}
+
+<div class="page-header clearfix">
+    <h4 class="pull-left"><i class="glyphicon glyphicon-list"></i> Respostas</h4><a href="~/TipoResposta/Create" class="btn btn-success pull-right"><i class="glyphicon glyphicon-plus"></i> <span>Novo Resposta</span></a>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.Label("Tipo de resposta")
+            @*@Html.DisplayNameFor(model => model.DescricaoTipoResposta)*@
+        </th>
+        <th>
+            @Html.Label("Status")
+            @*@Html.DisplayNameFor(model => model.TipoRespostaStatus)*@
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DescricaoTipoResposta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoRespostaStatus)
+            </td>
+            <td>
+
+
+                <div>
+                    <table class="navbar-right" border="0">
+                        <tr>
+                            <td>
+                                <button class="btn btn-warning pull-right" style="width:90px">@Html.ActionLink("Editar", "Edit", new { id = item.IdTipoResposta })</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-info pull-right" style="width:90px">@Html.ActionLink("Detalhes", "Details", new { id = item.IdTipoResposta })</button>
+                            </td>
+                        </tr>
+                    </table>
+
+                    @*<button class="btn btn-warning pull-right" style="width:90px">@Html.ActionLink("Editar", "Edit", new { id = item.IdTipoResposta })</button>
+                        <button class="btn btn-info pull-right" style="width:90px">@Html.ActionLink("Detalhes", "Details", new { id = item.IdTipoResposta })</button>*@
+                </div>
+
+                @*@Html.ActionLink("Delete", "Delete", new { id=item.IdTipoResposta })*@
+            </td>
+        </tr>
+    }
+
+</table>

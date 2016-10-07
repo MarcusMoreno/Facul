@@ -1,0 +1,61 @@
+﻿@model IEnumerable<FaculdadeSI.Models.Pergunta>
+
+@{
+    ViewBag.Title = "Created";
+}
+
+
+<div class="page-header clearfix">
+    <h4 class="pull-left"><i class="glyphicon glyphicon-list"></i> Perguntas</h4><a href="~/Pergunta/Create" class="btn btn-success pull-right"><i class="glyphicon glyphicon-plus"></i> <span>Nova pergunta</span></a>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.Label("Pergunta")
+            @*@Html.DisplayNameFor(model => model.DescricaoPergunta)*@
+        </th>
+        <th>
+            @Html.Label("Status")
+            @*@Html.DisplayNameFor(model => model.PerguntaStatus)*@
+        </th>
+        @*<th>
+                @Html.Label("Respostas")
+            </th>*@
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DescricaoPergunta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PerguntaStatus)
+            </td>
+            @*<td>
+                   @Html.DisplayFor("ListaTipoRespostas")
+                </td>*@
+            <td>
+                <div>
+
+                    <table class="navbar-right" border="0">
+                        <tr>
+                            <td>
+                                <button class="btn btn-warning pull-right" style="width:90px">@Html.ActionLink("Editar", "Edit", new { id = item.IdPergunta })</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-info pull-right" style="width:90px">@Html.ActionLink("Detalhes", "Details", new { id = item.IdPergunta })</button>
+                            </td>
+                        </tr>
+                    </table>
+
+                    @*<button class="btn btn-warning pull-right" style="width:90px">@Html.ActionLink("Editar", "Edit", new { id = item.IdPergunta })</button>
+                        <button class="btn btn-info pull-right" style="width:90px">@Html.ActionLink("Detalhes", "Details", new { id = item.IdPergunta })</button>*@
+                </div>
+            </td>
+        </tr>
+    }
+
+</table>

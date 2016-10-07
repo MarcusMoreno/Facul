@@ -20,6 +20,11 @@ namespace FaculdadeSI.Controllers
             return View(db.TipoRespostas.ToList());
         }
 
+        public ActionResult Created()
+        {
+            return View(db.TipoRespostas.ToList());
+        }
+
         // GET: TipoResposta/Details/5
         public ActionResult Details(int? id)
         {
@@ -52,7 +57,7 @@ namespace FaculdadeSI.Controllers
             {
                 db.TipoRespostas.Add(tipoResposta);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Created");
             }
 
             return View(tipoResposta);

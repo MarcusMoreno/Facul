@@ -394,7 +394,12 @@
     <Content Include="Views\Avaliacao\Details.cshtml" />
     <Content Include="Views\Avaliacao\Edit.cshtml" />
     <Content Include="Views\Avaliacao\Index.cshtml" />
-    <Content Include="Views\Avaliacao\Edit2.cshtml" />
+    <Content Include="Views\Avaliacao\Sent.cshtml" />
+    <Content Include="Views\Avaliacao\Created.cshtml" />
+    <Content Include="Views\Perfil\Created.cshtml" />
+    <Content Include="Views\Usuario\Created.cshtml" />
+    <Content Include="Views\TipoResposta\Created.cshtml" />
+    <Content Include="Views\Pergunta\Created.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

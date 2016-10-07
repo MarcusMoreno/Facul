@@ -20,6 +20,11 @@ namespace FaculdadeSI.Controllers
             return View(db.Perfils.ToList());
         }
 
+        public ActionResult Created()
+        {
+            return View(db.Perfils.ToList());
+        }
+
         // GET: Perfil/Details/5
         public ActionResult Details(int? id)
         {
@@ -56,7 +61,7 @@ namespace FaculdadeSI.Controllers
                 db.Perfils.Add(perfil);
                 db.SaveChanges();
                 
-                return RedirectToAction("Index");
+                return RedirectToAction("Created");
             }
 
             return View(perfil);
