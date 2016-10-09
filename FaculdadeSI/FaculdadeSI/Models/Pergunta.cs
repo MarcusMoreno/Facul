@@ -20,6 +20,7 @@ namespace FaculdadeSI.Models
             this.AvaliacaoPerguntas = new HashSet<AvaliacaoPergunta>();
             this.AvaliacaoRespostas = new HashSet<AvaliacaoResposta>();
             this.PerguntaTipoRespostas = new HashSet<PerguntaTipoResposta>();
+            this.TipoRespostas = new List<TipoResposta>();
            
         }
     

@@ -1,8 +1,15 @@
 ﻿@model FaculdadeSI.Models.Avaliacao
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "NotSent";
 }
+
+<p></p>
+
+<div class="alert alert-danger">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    Avaliação não enviada, favor tentar novamente!
+</div>
 
 <h2>Detalhes avaliação</h2>
 
@@ -11,7 +18,7 @@
     @Html.AntiForgeryToken()
     <hr />
     <div class="form-horizontal">
-        
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.IdAvaliacao)
 
@@ -39,38 +46,38 @@
         <div class="form-group">
             @Html.LabelFor(model => model.IdPerfil, "Perfil", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DisplayFor(model => model.Perfil.DescricaoPerfil)             
+                @Html.DisplayFor(model => model.Perfil.DescricaoPerfil)
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.AvaliacaoStatus, "Status", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DisplayFor(model => model.AvaliacaoStatus)               
+                @Html.DisplayFor(model => model.AvaliacaoStatus)
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Pergunta, "Perguntas", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("Perguntas", null, new {multiple = "multiple", @id = "pergunta", @class = "form-control" })                
+                @Html.DropDownList("Perguntas", null, new { multiple = "multiple", @id = "pergunta", @class = "form-control" })
             </div>
         </div>
 
-      </div>
+    </div>
 }
 
 <div>
 
-    <p>  
-        
-       
-        <button class="btn" style="width:90px">@Html.ActionLink("Voltar", "Index")</button>     
+    <p>
+
+
+        <button class="btn" style="width:90px">@Html.ActionLink("Voltar", "Index")</button>
         @*<button class="btn btn-warning pull-right" style="width:90px"><i class="glyphicon glyphicon-edit"></i><span>@Html.ActionLink("Editar", "Edit", new { idAvaliacao = Model.IdAvaliacao })</button>*@
         <button class="btn btn-warning pull-right" style="width:90px"><i class="glyphicon glyphicon-edit"></i><span>@Html.ActionLink("Editar", "Edit", new { id = Model.IdAvaliacao }) </span></button>
-        <button class="btn btn-success pull-right" style="width:90px" ><i class="glyphicon glyphicon-envelope"></i><span>@Html.ActionLink("Enviar", "Sent", new { idPerfil = Model.IdPerfil, idAvaliacao = Model.IdAvaliacao })</span></button>
+        <button class="btn btn-success pull-right" style="width:90px"><i class="glyphicon glyphicon-envelope"></i><span>@Html.ActionLink("Enviar", "Sent", new { idPerfil = Model.IdPerfil, idAvaliacao = Model.IdAvaliacao })</span></button>
 
-       </p>
+    </p>
 </div>
 
 

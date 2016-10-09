@@ -400,6 +400,8 @@
     <Content Include="Views\Usuario\Created.cshtml" />
     <Content Include="Views\TipoResposta\Created.cshtml" />
     <Content Include="Views\Pergunta\Created.cshtml" />
+    <Content Include="Views\Avaliacao\Answer.cshtml" />
+    <Content Include="Views\Avaliacao\NotSent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

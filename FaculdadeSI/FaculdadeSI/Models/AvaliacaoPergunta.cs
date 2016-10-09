@@ -19,6 +19,7 @@ namespace FaculdadeSI.Models
         public int IdPergunta { get; set; }
     
         public virtual Avaliacao Avaliacao { get; set; }
-        public virtual Pergunta Pergunta { get; set; }
+
+        public List<Pergunta> Pergunta { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace FaculdadeSI.Models
     public static class Email
     {
       
-        public static bool SendedEmail(List<string> mails)
+        public static bool SendedEmail(List<string> emails, int idAvaliação)
         {
             bool response = true;
 
@@ -19,7 +19,7 @@ namespace FaculdadeSI.Models
 
             senha = sr.ReadLine(); //vai ler a segunda linha onde está a senha
 
-            foreach (var item in mails)
+            foreach (var item in emails)
             {
                 try
                 {
@@ -39,7 +39,7 @@ namespace FaculdadeSI.Models
                     email.From = fromAddress;
                     email.To.Add(item);
                     email.Subject = "Título";
-                    email.Body = "Link da avaliação para responder";
+                    email.Body = string.Format( "http://localhost:34623/Avaliacao/Answer/{0}", idAvaliação);
 
                     smtp.Send(email);
                 }
