@@ -8,6 +8,9 @@ using System.Web;
 using System.Web.Mvc;
 using FaculdadeSI.Models;
 using System.Net.Mail;
+using System.Text;
+using System.IO;
+
 
 namespace FaculdadeSI.Controllers
 {
@@ -28,6 +31,12 @@ namespace FaculdadeSI.Controllers
             return View(avaliacaos.ToList());
         }
 
+        public ActionResult AnswerSucess()
+        {   
+            return View();
+        }
+
+
         public ActionResult Answer(int id)
         {
             if (id < 0)
@@ -42,17 +51,18 @@ namespace FaculdadeSI.Controllers
                    .Join(db.Perguntas, j => j.IdPergunta, k => k.IdPergunta, (j, k) => new { j, k }).Where(x => x.j.IdAvaliacao == id)
                    .Join(db.Avaliacaos, a => a.j.IdAvaliacao, b => b.IdAvaliacao, (a, b) => new { a, b }).Select(s => new SelectListItem { Value = s.a.j.IdPergunta.ToString(), Text = s.a.k.DescricaoPergunta });
 
-           
-            List<Pergunta> listPerguntascomRespostas = new List<Pergunta>();            
 
-            foreach(var item in listPerguntasJoin)
+            List<Pergunta> listPerguntascomRespostas = new List<Pergunta>();
+
+            foreach (var item in listPerguntasJoin)
             {
-                Pergunta pergunta = new Pergunta();   
-            
+                Pergunta pergunta = new Pergunta();
+
                 pergunta.DescricaoPergunta = item.Text;
+                pergunta.IdPergunta = Convert.ToInt32(item.Value);
 
                 foreach (var item2 in db.PerguntaTipoRespostas.Where(x => x.IdPergunta.ToString() == item.Value))
-                {                    
+                {
                     TipoResposta tipoResposta = new TipoResposta();
 
                     var tipoRespostaNovo = db.TipoRespostas.FirstOrDefault(x => x.IdTipoResposta == item2.IdtipoResposta);
@@ -60,17 +70,17 @@ namespace FaculdadeSI.Controllers
                     tipoResposta.IdTipoResposta = tipoRespostaNovo.IdTipoResposta;
                     tipoResposta.DescricaoTipoResposta = tipoRespostaNovo.DescricaoTipoResposta;
 
-                   
 
-                    pergunta.TipoRespostas.Add(tipoResposta);                   
+
+                    pergunta.TipoRespostas.Add(tipoResposta);
                 }
 
                 listPerguntascomRespostas.Add(pergunta);
 
             }
-
+            //ViewBag.Titulo = db.Avaliacaos.First(x => x.IdAvaliacao == id).DescricaoAvaliacao;
             ViewBag.PerguntasWithRespostas = listPerguntascomRespostas;
-           
+
 
             ////Todas as perguntas
             //ViewBag.Perguntas = listPerguntasJoin.ToList();
@@ -187,7 +197,7 @@ namespace FaculdadeSI.Controllers
         // POST: Avaliacao/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Answer(Avaliacao avaliacao , FormCollection form)
+        public ActionResult Answer(FormCollection teste, FormCollection form)
         {
             if (ModelState.IsValid)
             {
@@ -222,7 +232,7 @@ namespace FaculdadeSI.Controllers
                 return RedirectToAction("Created");
             }
 
-            return View(avaliacao);
+            return View();
         }
 
 
@@ -352,6 +362,26 @@ namespace FaculdadeSI.Controllers
 
             var response = Models.Email.SendedEmail(emails, idAvaliacao);
             return response;
+        }
+
+
+        public ActionResult TesteCSV(int id)
+        {
+            StreamWriter valor = new StreamWriter("C:\\Users\\Marcus\\Desktop\\Particular\\teste.txt", true);
+      
+            var t = db.Avaliacaos.Where(x => x.IdAvaliacao == id);
+
+            foreach( var item in t)
+            {
+                var descPerfil = db.Perfils.FirstOrDefault(x => x.IdPerfil == item.IdPerfil);
+                
+                valor.WriteLine(string.Format("{0};{1};", item.DescricaoAvaliacao, descPerfil.DescricaoPerfil));
+                
+            }
+
+            valor.Close();
+            
+            return RedirectToAction("Index");
         }
 
     }

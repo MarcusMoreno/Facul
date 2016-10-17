@@ -19,39 +19,49 @@
         <h3 style="text-align: center">
             @Html.DisplayFor(model => model.DescricaoAvaliacao)
         </h3>
+    
     <div class="form-horizontal">
 
         @foreach (var item in ViewBag.PerguntasWithRespostas)
         {
-            <div class="form-group" required>
-                <div class="col-md-10">
-                    <h3>@item.DescricaoPergunta </h3>
+            string t = @item.DescricaoPergunta;
+             <div>
+                 @Html.Label(t, null, new { id = @item.IdPergunta })
+             </div>           
+        
+            <table>
+                    <tr>                        
+                                @foreach (var item2 in item.TipoRespostas)
+                                {
+                                    string descricaoPergunta = @item.DescricaoPergunta;
+                                    string descricaoTipoResposta = @item2.DescricaoTipoResposta;      
 
-                    <table>
-                        <tr>
-                            @foreach (var item2 in item.TipoRespostas)
-                        {
-                            string t = @item2.DescricaoTipoResposta;
-                            string u = @item.DescricaoPergunta;
+                                    <td width="190">
+                                        <div class="form-horizontal" required>
+                                           
+                                              <div>
+                                                  @Html.RadioButton(descricaoPergunta, descricaoTipoResposta, false, new { id = @item2.IdTipoResposta }) @item2.DescricaoTipoResposta
+                                                </div>  
 
-                                <td width="190">
-                                    <label>  @Html.RadioButton(u, t, false, null) @item2.DescricaoTipoResposta </label>
-                                </td>
+                                                @*<input id="@("radio_" + descricaoTipoResposta + @item.IdPergunta)" type="radio" value="@item.IdPergunta + @item2.IdTipoResposta" name="@item.IdPergunta" />
+                                                <label for="@("radio_" + descricaoTipoResposta)">@item2.DescricaoTipoResposta</label>*@
+                                           
+                                        </div>
+                                    </td>
+                                }                           
+                    </tr>
+            </table>            
 
-                        }
-                        </tr>
-                    </table>
-                    </div>
-                </div>
         }
-
-                <div class="form-group">
-                    <div class="col-md-10">
-                        <button class="btn btn-success pull-right" type="submit" value="Save">  Enviar  </button>
-                    </div>
-                </div>
+        
+    
+        <div class="form-horizontal">
+            <div class="col-md-offset-2 col-md-10">
+                <button class="btn btn-success pull-right" type="submit" value="Save">  Enviar  </button>
             </div>
+        </div>
 
+    </div>
 }
 
    

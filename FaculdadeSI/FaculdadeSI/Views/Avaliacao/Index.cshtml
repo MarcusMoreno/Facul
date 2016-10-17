@@ -73,6 +73,9 @@
                         <td>
                             <button class="btn btn-info pull-right" style="width:90px">@Html.ActionLink("Detalhes", "Details", new { id = item.IdAvaliacao })</button>
                         </td>
+                        <td>
+                            <button class="btn btn-default pull-right" style="width:90px">@Html.ActionLink("Relatório", "TesteCSV", new { id = item.IdAvaliacao })</button>
+                        </td>
                     </tr>
                 </table>
 
