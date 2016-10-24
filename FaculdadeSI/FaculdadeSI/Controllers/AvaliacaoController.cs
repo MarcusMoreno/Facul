@@ -184,6 +184,7 @@ namespace FaculdadeSI.Controllers
             
             //Avaliacao que vai ser retornada para a view
             Avaliacao avaliacaoCompleta = new Avaliacao();
+            avaliacaoCompleta.IdAvaliacao = id;
      
             //Para cada pergunta da lista, pega suas opções de respostas
             foreach (var item in listPerguntasJoin)
@@ -223,43 +224,27 @@ namespace FaculdadeSI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Answer(AvaliacaoResposta av, FormCollection form)
+        public ActionResult Answer(List<string> pergunta, FormCollection form)
         {
-            //FormCollection teste, FormCollection form
-            if (ModelState.IsValid)
+            foreach(var item in pergunta)
             {
-                //Cria uma lista do que foi passado no dorpdown
-                //var listaPerguntasRequest = form["Perguntas"].Split(',').ToList();
+                var u = item.Split(',').ToList();
+                var idPergunta = u[0];
+                var idTipoResposta = u[1];
+                var idAvaliacao = u[2];
 
-                //if (listaPerguntasRequest.Count < 5)
-                //{
-                //    avaliacao.AvaliacaoStatus = false;
-                //}
+                AvaliacaoResposta av1 = new AvaliacaoResposta();
+                av1.IdAvaliacao = Convert.ToInt32(idAvaliacao);
+                av1.IdUsuario = 1;
+                av1.IdPergunta = Convert.ToInt32(idPergunta);
+                av1.IdTipoResposta = Convert.ToInt32(idTipoResposta);
 
-                //db.Avaliacaos.Add(avaliacao);
-
-                //Lista das perguntas que existem no banco
-                var listaPerguntasBd = db.Perguntas.ToList();
-
-                //Para cada pergunta enviada na avaliacao, inseri na tabela AvaliacaòPergunta
-                //foreach (var item in listaPerguntasRequest)
-                //{
-                //    //PEga objeto no db.TipoResposta que seja igual a item
-                //    var descPergunta = listaPerguntasBd.FirstOrDefault(f => f.DescricaoPergunta == item);
-
-                //    AvaliacaoPergunta avaliacaoPergunta = new AvaliacaoPergunta();
-                //    avaliacaoPergunta.IdAvaliacao = avaliacao.IdAvaliacao;
-                //    avaliacaoPergunta.IdPergunta = descPergunta.IdPergunta;
-
-                //    //Adiciona no banco
-                //    db.AvaliacaoPerguntas.Add(avaliacaoPergunta);
-                //}
-
-                db.SaveChanges();
-                return RedirectToAction("Created");
+                db.AvaliacaoRespostas.Add(av1);
             }
 
-            return View();
+               db.SaveChanges();
+               return RedirectToAction("Created");
+          
         }
 
 #endregion

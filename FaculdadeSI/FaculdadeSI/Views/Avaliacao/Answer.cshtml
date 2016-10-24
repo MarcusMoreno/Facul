@@ -16,33 +16,24 @@
 </h3>
 
 @using (Html.BeginForm())
-{
+{   
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
 
         @foreach (var item in Model.Pergunta)
-        {
-            <div>
-                <h4>
+        { 
+           
+            <div class="form-group">
+                
+                <div class="col-md-10">
                     @Html.Label(@item.DescricaoPergunta, null, new { id = @item.IdPergunta })
-                </h4>
-                @foreach (var item2 in item.TipoRespostas)
-                {
-                    string f = string.Format("{0},{1}", item.IdPergunta.ToString(), item2.IdTipoResposta);
-                    string g = @item.DescricaoPergunta;
-
-                    <div class="form-group">
-                        <ol>
-                            @Html.RadioButton(g, f)
-                            @Html.Label(@item2.DescricaoTipoResposta)
-                        </ol>
-                    </div>
-                }
+                    @Html.DropDownList("pergunta", @item.TipoRespostas.Select(d => new SelectListItem { Text = d.DescricaoTipoResposta, Value = string.Format("{0},{1},{2}",@item.IdPergunta, d.IdTipoResposta.ToString(), Model.IdAvaliacao)}), "Selecione", htmlAttributes: new { @required = "required", @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IdUsuario, "", new { @class = "text-danger" })
+                </div>
             </div>
         }
-
-
+        
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <button class="btn btn-success pull-right" type="submit" value="Save">  Enviar  </button>
