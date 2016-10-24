@@ -25,123 +25,7 @@ namespace FaculdadeSI.Controllers
             return View(avaliacaos.ToList());
         }
 
-        public ActionResult Created()
-        {
-            var avaliacaos = db.Avaliacaos.Include(a => a.Perfil).Include(a => a.Usuario);
-            return View(avaliacaos.ToList());
-        }
-
-        public ActionResult AnswerSucess()
-        {   
-            return View();
-        }
-
-
-        public ActionResult Answer(int id)
-        {
-            if (id < 0)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            Avaliacao avaliacao = db.Avaliacaos.Find(id);
-
-            //Lista de perugntas que pertencem a avaliacao
-            var listPerguntasJoin = db.AvaliacaoPerguntas
-                   .Join(db.Perguntas, j => j.IdPergunta, k => k.IdPergunta, (j, k) => new { j, k }).Where(x => x.j.IdAvaliacao == id)
-                   .Join(db.Avaliacaos, a => a.j.IdAvaliacao, b => b.IdAvaliacao, (a, b) => new { a, b }).Select(s => new SelectListItem { Value = s.a.j.IdPergunta.ToString(), Text = s.a.k.DescricaoPergunta });
-
-
-            List<Pergunta> listPerguntascomRespostas = new List<Pergunta>();
-
-            foreach (var item in listPerguntasJoin)
-            {
-                Pergunta pergunta = new Pergunta();
-
-                pergunta.DescricaoPergunta = item.Text;
-                pergunta.IdPergunta = Convert.ToInt32(item.Value);
-
-                foreach (var item2 in db.PerguntaTipoRespostas.Where(x => x.IdPergunta.ToString() == item.Value))
-                {
-                    TipoResposta tipoResposta = new TipoResposta();
-
-                    var tipoRespostaNovo = db.TipoRespostas.FirstOrDefault(x => x.IdTipoResposta == item2.IdtipoResposta);
-
-                    tipoResposta.IdTipoResposta = tipoRespostaNovo.IdTipoResposta;
-                    tipoResposta.DescricaoTipoResposta = tipoRespostaNovo.DescricaoTipoResposta;
-
-
-
-                    pergunta.TipoRespostas.Add(tipoResposta);
-                }
-
-                listPerguntascomRespostas.Add(pergunta);
-
-            }
-            //ViewBag.Titulo = db.Avaliacaos.First(x => x.IdAvaliacao == id).DescricaoAvaliacao;
-            ViewBag.PerguntasWithRespostas = listPerguntascomRespostas;
-
-
-            ////Todas as perguntas
-            //ViewBag.Perguntas = listPerguntasJoin.ToList();
-
-            if (avaliacao == null)
-            {
-                return HttpNotFound();
-            }
-
-            return View(avaliacao);
-        }
-
-
-        // GET: Avaliacao/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Avaliacao avaliacao = db.Avaliacaos.Find(id);
-
-            //Lista de perugntas que pertencem a avaliacao
-            var listPerguntasJoin = db.AvaliacaoPerguntas
-                   .Join(db.Perguntas, j => j.IdPergunta, k => k.IdPergunta, (j, k) => new { j, k }).Where(x => x.j.IdAvaliacao == id)
-                   .Join(db.Avaliacaos, a => a.j.IdAvaliacao, b => b.IdAvaliacao, (a, b) => new { a, b }).Select(s => new SelectListItem { Value = s.a.j.IdPergunta.ToString(), Text = s.a.k.DescricaoPergunta });
-
-            //Todas as perguntas
-            ViewBag.Perguntas = listPerguntasJoin.ToList();
-
-            if (avaliacao == null)
-            {
-                return HttpNotFound();
-            }
-            return View(avaliacao);
-        }
-
-
-        public ActionResult NotSent(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Avaliacao avaliacao = db.Avaliacaos.Find(id);
-
-            //Lista de perugntas que pertencem a avaliacao
-            var listPerguntasJoin = db.AvaliacaoPerguntas
-                   .Join(db.Perguntas, j => j.IdPergunta, k => k.IdPergunta, (j, k) => new { j, k }).Where(x => x.j.IdAvaliacao == id)
-                   .Join(db.Avaliacaos, a => a.j.IdAvaliacao, b => b.IdAvaliacao, (a, b) => new { a, b }).Select(s => new SelectListItem { Value = s.a.j.IdPergunta.ToString(), Text = s.a.k.DescricaoPergunta });
-
-            //Todas as perguntas
-            ViewBag.Perguntas = listPerguntasJoin.ToList();
-
-            if (avaliacao == null)
-            {
-                return HttpNotFound();
-            }
-            return View(avaliacao);
-        }
-
+#region Create
         // GET: Avaliacao/Create
         public ActionResult Create()
         {
@@ -151,7 +35,6 @@ namespace FaculdadeSI.Controllers
 
             return View();
         }
-
 
         // POST: Avaliacao/Create
         [HttpPost]
@@ -194,48 +77,14 @@ namespace FaculdadeSI.Controllers
             return View(avaliacao);
         }
 
-        // POST: Avaliacao/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Answer(FormCollection teste, FormCollection form)
+        public ActionResult Created()
         {
-            if (ModelState.IsValid)
-            {
-                //Cria uma lista do que foi passado no dorpdown
-                //var listaPerguntasRequest = form["Perguntas"].Split(',').ToList();
-
-                //if (listaPerguntasRequest.Count < 5)
-                //{
-                //    avaliacao.AvaliacaoStatus = false;
-                //}
-
-                //db.Avaliacaos.Add(avaliacao);
-
-                //Lista das perguntas que existem no banco
-                var listaPerguntasBd = db.Perguntas.ToList();
-
-                //Para cada pergunta enviada na avaliacao, inseri na tabela AvaliacaòPergunta
-                //foreach (var item in listaPerguntasRequest)
-                //{
-                //    //PEga objeto no db.TipoResposta que seja igual a item
-                //    var descPergunta = listaPerguntasBd.FirstOrDefault(f => f.DescricaoPergunta == item);
-
-                //    AvaliacaoPergunta avaliacaoPergunta = new AvaliacaoPergunta();
-                //    avaliacaoPergunta.IdAvaliacao = avaliacao.IdAvaliacao;
-                //    avaliacaoPergunta.IdPergunta = descPergunta.IdPergunta;
-
-                //    //Adiciona no banco
-                //    db.AvaliacaoPerguntas.Add(avaliacaoPergunta);
-                //}
-
-                db.SaveChanges();
-                return RedirectToAction("Created");
-            }
-
-            return View();
+            var avaliacaos = db.Avaliacaos.Include(a => a.Perfil).Include(a => a.Usuario);
+            return View(avaliacaos.ToList());
         }
+#endregion 
 
-
+#region Edit
         // GET: Avaliacao/Edit/{IdAvaliacao}
         public ActionResult Edit(int? id)
         {
@@ -260,35 +109,6 @@ namespace FaculdadeSI.Controllers
             }
 
             return View(avaliacao);
-        }
-
-
-        public ActionResult Sent(int idPerfil, int idAvaliacao)
-        {
-            if (idPerfil < 0 || idAvaliacao < 0) //Mudar
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-           
-            //Se conseguiu manadar e-mails
-            if (SendedEmails(idPerfil, idAvaliacao))
-            {
-                List<string> listaEmailsEnviados = new List<string>();
-
-                foreach (var item in db.Usuarios.Where(x => x.IdPerfil == idPerfil))
-                {
-                    listaEmailsEnviados.Add(item.Email);
-                }
-
-                ViewBag.Emails = new SelectList(listaEmailsEnviados);
-
-                return View();
-            }
-
-
-            //return View("Details", idAvaliacao);
-            return RedirectToAction("NotSent", new { id = idAvaliacao });
-           
         }
 
         // POST: Avaliacao/Edit/5
@@ -339,6 +159,187 @@ namespace FaculdadeSI.Controllers
         }
 
 
+        #endregion
+
+#region Answer
+
+        public ActionResult AnswerSucess()
+        {   
+            return View();
+        }
+
+        public ActionResult Answer(int id)
+        {
+            if (id < 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Avaliacao avaliacao = db.Avaliacaos.Find(id);
+
+            //Lista de perugntas que pertencem a avaliacao
+            var listPerguntasJoin = db.AvaliacaoPerguntas
+                   .Join(db.Perguntas, j => j.IdPergunta, k => k.IdPergunta, (j, k) => new { j, k }).Where(x => x.j.IdAvaliacao == id)
+                   .Join(db.Avaliacaos, a => a.j.IdAvaliacao, b => b.IdAvaliacao, (a, b) => new { a, b }).Select(s => new SelectListItem { Value = s.a.j.IdPergunta.ToString(), Text = s.a.k.DescricaoPergunta });
+            
+            //Avaliacao que vai ser retornada para a view
+            Avaliacao avaliacaoCompleta = new Avaliacao();
+     
+            //Para cada pergunta da lista, pega suas opções de respostas
+            foreach (var item in listPerguntasJoin)
+            {
+                Pergunta pergunta = new Pergunta();
+                pergunta.DescricaoPergunta = item.Text;
+                pergunta.IdPergunta = Convert.ToInt32(item.Value);
+
+                foreach (var item2 in db.PerguntaTipoRespostas.Where(x => x.IdPergunta.ToString() == item.Value))
+                {
+                    TipoResposta tipoResposta = new TipoResposta();
+
+                    var tipoRespostaNovo = db.TipoRespostas.FirstOrDefault(x => x.IdTipoResposta == item2.IdtipoResposta);
+
+                    tipoResposta.IdTipoResposta = tipoRespostaNovo.IdTipoResposta;
+                    tipoResposta.DescricaoTipoResposta = tipoRespostaNovo.DescricaoTipoResposta;
+
+                    pergunta.TipoRespostas.Add(tipoResposta);
+                }
+                 avaliacaoCompleta.Pergunta.Add(pergunta);              
+            }
+
+                                 
+             ViewBag.TituloAvaliacao = avaliacao.Titulo.ToString();
+             ViewBag.TituloDescricao = avaliacao.DescricaoAvaliacao.ToString();
+             ViewBag.perguntaComResposta1Pergunta = avaliacaoCompleta.Pergunta[0].DescricaoPergunta.ToString();
+             ViewBag.perguntaComResposta1 = new SelectList(avaliacaoCompleta.Pergunta[0].TipoRespostas.Select(f => f.DescricaoTipoResposta).ToList());
+             
+            
+            if (avaliacaoCompleta == null)
+            {
+                return HttpNotFound();
+            }
+        
+            return View(avaliacaoCompleta);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Answer(AvaliacaoResposta av, FormCollection form)
+        {
+            //FormCollection teste, FormCollection form
+            if (ModelState.IsValid)
+            {
+                //Cria uma lista do que foi passado no dorpdown
+                //var listaPerguntasRequest = form["Perguntas"].Split(',').ToList();
+
+                //if (listaPerguntasRequest.Count < 5)
+                //{
+                //    avaliacao.AvaliacaoStatus = false;
+                //}
+
+                //db.Avaliacaos.Add(avaliacao);
+
+                //Lista das perguntas que existem no banco
+                var listaPerguntasBd = db.Perguntas.ToList();
+
+                //Para cada pergunta enviada na avaliacao, inseri na tabela AvaliacaòPergunta
+                //foreach (var item in listaPerguntasRequest)
+                //{
+                //    //PEga objeto no db.TipoResposta que seja igual a item
+                //    var descPergunta = listaPerguntasBd.FirstOrDefault(f => f.DescricaoPergunta == item);
+
+                //    AvaliacaoPergunta avaliacaoPergunta = new AvaliacaoPergunta();
+                //    avaliacaoPergunta.IdAvaliacao = avaliacao.IdAvaliacao;
+                //    avaliacaoPergunta.IdPergunta = descPergunta.IdPergunta;
+
+                //    //Adiciona no banco
+                //    db.AvaliacaoPerguntas.Add(avaliacaoPergunta);
+                //}
+
+                db.SaveChanges();
+                return RedirectToAction("Created");
+            }
+
+            return View();
+        }
+
+#endregion
+
+
+        // GET: Avaliacao/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Avaliacao avaliacao = db.Avaliacaos.Find(id);
+
+            //Lista de perugntas que pertencem a avaliacao
+            var listPerguntasJoin = db.AvaliacaoPerguntas
+                   .Join(db.Perguntas, j => j.IdPergunta, k => k.IdPergunta, (j, k) => new { j, k }).Where(x => x.j.IdAvaliacao == id)
+                   .Join(db.Avaliacaos, a => a.j.IdAvaliacao, b => b.IdAvaliacao, (a, b) => new { a, b }).Select(s => new SelectListItem { Value = s.a.j.IdPergunta.ToString(), Text = s.a.k.DescricaoPergunta });
+
+            //Todas as perguntas
+            ViewBag.Perguntas = listPerguntasJoin.ToList();
+
+            if (avaliacao == null)
+            {
+                return HttpNotFound();
+            }
+            return View(avaliacao);
+        }
+
+        public ActionResult NotSent(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Avaliacao avaliacao = db.Avaliacaos.Find(id);
+
+            //Lista de perugntas que pertencem a avaliacao
+            var listPerguntasJoin = db.AvaliacaoPerguntas
+                   .Join(db.Perguntas, j => j.IdPergunta, k => k.IdPergunta, (j, k) => new { j, k }).Where(x => x.j.IdAvaliacao == id)
+                   .Join(db.Avaliacaos, a => a.j.IdAvaliacao, b => b.IdAvaliacao, (a, b) => new { a, b }).Select(s => new SelectListItem { Value = s.a.j.IdPergunta.ToString(), Text = s.a.k.DescricaoPergunta });
+
+            //Todas as perguntas
+            ViewBag.Perguntas = listPerguntasJoin.ToList();
+
+            if (avaliacao == null)
+            {
+                return HttpNotFound();
+            }
+            return View(avaliacao);
+        }
+
+        public ActionResult Sent(int idPerfil, int idAvaliacao)
+        {
+            if (idPerfil < 0 || idAvaliacao < 0) //Mudar
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+           
+            //Se conseguiu manadar e-mails
+            if (SendedEmails(idPerfil, idAvaliacao))
+            {
+                List<string> listaEmailsEnviados = new List<string>();
+
+                foreach (var item in db.Usuarios.Where(x => x.IdPerfil == idPerfil))
+                {
+                    listaEmailsEnviados.Add(item.Email);
+                }
+
+                ViewBag.Emails = new SelectList(listaEmailsEnviados);
+
+                return View();
+            }
+
+
+            //return View("Details", idAvaliacao);
+            return RedirectToAction("NotSent", new { id = idAvaliacao });
+           
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -347,7 +348,6 @@ namespace FaculdadeSI.Controllers
             }
             base.Dispose(disposing);
         }
-
 
         public bool SendedEmails(int idPerfil, int idAvaliacao)
         {
@@ -363,7 +363,6 @@ namespace FaculdadeSI.Controllers
             var response = Models.Email.SendedEmail(emails, idAvaliacao);
             return response;
         }
-
 
         public ActionResult TesteCSV(int id)
         {

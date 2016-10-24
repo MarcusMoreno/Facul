@@ -6,56 +6,44 @@
 
 <h2>Responda a avaliação</h2>
 
+<hr />
+<h1 style="text-align: center">
+    @Html.DisplayFor(model => model.Titulo)
+</h1>
+
+<h3 style="text-align: center">
+    @Html.DisplayFor(model => model.DescricaoAvaliacao)
+</h3>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <hr />
-        <h1 style="text-align: center">
-            @Html.DisplayFor(model => model.Titulo)
-        </h1>
 
-        <h3 style="text-align: center">
-            @Html.DisplayFor(model => model.DescricaoAvaliacao)
-        </h3>
-    
     <div class="form-horizontal">
 
-        @foreach (var item in ViewBag.PerguntasWithRespostas)
+        @foreach (var item in Model.Pergunta)
         {
-            string t = @item.DescricaoPergunta;
-             <div>
-                 @Html.Label(t, null, new { id = @item.IdPergunta })
-             </div>           
-        
-            <table>
-                    <tr>                        
-                                @foreach (var item2 in item.TipoRespostas)
-                                {
-                                    string descricaoPergunta = @item.DescricaoPergunta;
-                                    string descricaoTipoResposta = @item2.DescricaoTipoResposta;      
+            <div>
+                <h4>
+                    @Html.Label(@item.DescricaoPergunta, null, new { id = @item.IdPergunta })
+                </h4>
+                @foreach (var item2 in item.TipoRespostas)
+                {
+                    string f = string.Format("{0},{1}", item.IdPergunta.ToString(), item2.IdTipoResposta);
+                    string g = @item.DescricaoPergunta;
 
-                                    <td width="190">
-                                        <div class="form-horizontal" required>
-                                           
-                                              <div>
-                                                  @Html.RadioButton(descricaoPergunta, descricaoTipoResposta, false, new { id = @item2.IdTipoResposta }) @item2.DescricaoTipoResposta
-                                                </div>  
-
-                                                @*<input id="@("radio_" + descricaoTipoResposta + @item.IdPergunta)" type="radio" value="@item.IdPergunta + @item2.IdTipoResposta" name="@item.IdPergunta" />
-                                                <label for="@("radio_" + descricaoTipoResposta)">@item2.DescricaoTipoResposta</label>*@
-                                           
-                                        </div>
-                                    </td>
-                                }                           
-                    </tr>
-            </table>            
-
+                    <div class="form-group">
+                        <ol>
+                            @Html.RadioButton(g, f)
+                            @Html.Label(@item2.DescricaoTipoResposta)
+                        </ol>
+                    </div>
+                }
+            </div>
         }
-        
-    
-        <div class="form-horizontal">
+
+
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <button class="btn btn-success pull-right" type="submit" value="Save">  Enviar  </button>
             </div>
@@ -63,7 +51,3 @@
 
     </div>
 }
-
-   
-
-

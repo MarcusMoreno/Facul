@@ -21,6 +21,7 @@ namespace FaculdadeSI.Models
         {
             this.AvaliacaoPerguntas = new HashSet<AvaliacaoPergunta>();
             this.AvaliacaoRespostas = new HashSet<AvaliacaoResposta>();
+            this.Pergunta = new List<Pergunta>();
         }
     
         public int IdAvaliacao { get; set; }
@@ -62,6 +63,8 @@ namespace FaculdadeSI.Models
         public virtual ICollection<AvaliacaoResposta> AvaliacaoRespostas { get; set; }
 
         public virtual List<Pergunta> Pergunta { get; set; }
+
+        public virtual List<TipoResposta> TipoResposta {get; set;}
 
 
 
