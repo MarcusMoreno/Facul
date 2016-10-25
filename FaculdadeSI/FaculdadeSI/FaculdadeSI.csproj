@@ -402,6 +402,7 @@
     <Content Include="Views\Pergunta\Created.cshtml" />
     <Content Include="Views\Avaliacao\Answer.cshtml" />
     <Content Include="Views\Avaliacao\NotSent.cshtml" />
+    <Content Include="Views\Avaliacao\AnswerSucess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -416,6 +417,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reports\Report1.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

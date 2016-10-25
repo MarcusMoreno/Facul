@@ -20,6 +20,8 @@ namespace FaculdadeSI.Models
     
         public virtual Avaliacao Avaliacao { get; set; }
 
-        public List<Pergunta> Pergunta { get; set; }
+        //public List<Pergunta> Pergunta { get; set; }
+
+        public virtual Pergunta Pergunta { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Web;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace FaculdadeSI.Models
 {
@@ -21,36 +22,64 @@ namespace FaculdadeSI.Models
 
             foreach (var item in emails)
             {
-                try
+                //Verifica se o e-mail é válido
+                if (emailIsValid(item))
                 {
-                    MailMessage email = new MailMessage();
-                    SmtpClient smtp = new SmtpClient();
-                    smtp.Host = "smtp.gmail.com";
+                    try
+                    {
 
-                    // set up the Gmail server
-                    smtp.EnableSsl = true;
-                    smtp.Port = 587;
-                    smtp.UseDefaultCredentials = false;
-                    smtp.Credentials = new System.Net.NetworkCredential("sasestacio@gmail.com", senha);
-                    smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                        MailMessage email = new MailMessage();
+                        SmtpClient smtp = new SmtpClient();
+                        smtp.Host = "smtp.gmail.com";
 
-                    // draft the email
-                    MailAddress fromAddress = new MailAddress("sasestacio@gmail.com");
-                    email.From = fromAddress;
-                    email.To.Add(item);
-                    email.Subject = "Título";
-                    email.Body = string.Format( "http://localhost:34623/Avaliacao/Answer/{0}", idAvaliação);
+                        // set up the Gmail server
+                        smtp.EnableSsl = true;
+                        smtp.Port = 587;
+                        smtp.UseDefaultCredentials = false;
+                        smtp.Credentials = new System.Net.NetworkCredential("sasestacio@gmail.com", senha);
+                        smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
 
-                    smtp.Send(email);
-                }
+                        // draft the email
+                        MailAddress fromAddress = new MailAddress("sasestacio@gmail.com");
+                        email.From = fromAddress;
+                        email.To.Add(item);
+                        email.Subject = "Título";
+                        email.Body = string.Format("http://localhost:34623/Avaliacao/Answer/{0}", idAvaliação);
 
-                catch (Exception ex)
-                {
-                    response = false;
+                        smtp.Send(email);
+                    }
+
+
+
+                    catch (Exception ex)
+                    {
+                        response = false;
+                    }
                 }
             }
 
             return response;
+        }
+
+        public static bool emailIsValid(string email)
+        {
+            string expresion;
+            expresion = "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
+            if (Regex.IsMatch(email, expresion))
+            {
+                if (Regex.Replace(email, expresion, string.Empty).Length == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

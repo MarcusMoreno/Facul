@@ -35,8 +35,8 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Telefone, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Telefone, new { htmlAttributes = new { @required = "required", @class = "form-control" } })
+            <div class="col-md-10" >
+                @Html.EditorFor(model => model.Telefone, new { htmlAttributes =  new { @required = "required", @class = "form-control" , @type = "number"} })
                 @Html.ValidationMessageFor(model => model.Telefone, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -60,12 +60,13 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Senha, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Senha, new { htmlAttributes = new { @required = "required", @class = "form-control" } })
+                @Html.PasswordFor(model => model.Senha, new { htmlAttributes = new { @required = "required", @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
+       
+        
+         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <button class="btn btn-primary" type="submit" value="Save">  Salvar  </button>
             </div>

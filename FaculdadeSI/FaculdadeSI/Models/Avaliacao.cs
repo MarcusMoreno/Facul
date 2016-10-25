@@ -54,6 +54,7 @@ namespace FaculdadeSI.Models
 
 
         public virtual Perfil Perfil { get; set; }
+
         public virtual Usuario Usuario { get; set; }
 
 
