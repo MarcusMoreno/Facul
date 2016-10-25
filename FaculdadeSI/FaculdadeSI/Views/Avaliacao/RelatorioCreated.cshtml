@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<FaculdadeSI.Models.Avaliacao>
 
 @{
-    ViewBag.Title = "Created";
+    ViewBag.Title = "RelatorioCreated";
 }
 <p></p>
 <div class="alert alert-success">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    Avaliação criada com sucesso!
+    Relatório gerado com sucesso!
 </div>
 
 
@@ -39,8 +39,8 @@
             @*@Html.DisplayNameFor(model => model.Perfil.DescricaoPerfil)*@
         </th>
         <th>
-                @Html.Label("Criador")
-            </th>
+            @Html.Label("Criador")
+        </th>
         <th></th>
     </tr>
 
@@ -66,28 +66,28 @@
                 @Html.DisplayFor(modelItem => item.Perfil.DescricaoPerfil)
             </td>
             <td>
-                    @Html.DisplayFor(modelItem => item.Usuario.Nome)
-                </td>
+                @Html.DisplayFor(modelItem => item.Usuario.Nome)
+            </td>
             <td>
 
-                
-                    <table class="navbar-right" border="0">
-                        <tr>
-                            <td>
-                                <button class="btn btn-warning pull-right" style="width:90px">@Html.ActionLink("Editar", "Edit", new { id = item.IdAvaliacao })</button>
-                            </td>
-                            <td>
-                                <button class="btn btn-info pull-right" style="width:90px">@Html.ActionLink("Detalhes", "Details", new { id = item.IdAvaliacao })</button>
-                            </td>
-                            <td>
-                                <button class="btn btn-default pull-right" style="width:90px">@Html.ActionLink("Relatório", "TesteCSV", new { id = item.IdAvaliacao })</button>
-                            </td>
-                        </tr>
-                    </table>
 
-                    @*<button class="btn btn-warning pull-right" style="width:90px">@Html.ActionLink("Editar", "Edit", new { id = item.IdAvaliacao })</button>
-                        <button class="btn btn-info pull-right" style="width:90px">@Html.ActionLink("Detalhes", "Details", new { id = item.IdAvaliacao })</button>*@
-                
+                <table class="navbar-right" border="0">
+                    <tr>
+                        <td>
+                            <button class="btn btn-warning pull-right" style="width:90px">@Html.ActionLink("Editar", "Edit", new { id = item.IdAvaliacao })</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-info pull-right" style="width:90px">@Html.ActionLink("Detalhes", "Details", new { id = item.IdAvaliacao })</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-default pull-right" style="width:90px">@Html.ActionLink("Relatório", "TesteCSV", new { id = item.IdAvaliacao })</button>
+                        </td>
+                    </tr>
+                </table>
+
+                @*<button class="btn btn-warning pull-right" style="width:90px">@Html.ActionLink("Editar", "Edit", new { id = item.IdAvaliacao })</button>
+                    <button class="btn btn-info pull-right" style="width:90px">@Html.ActionLink("Detalhes", "Details", new { id = item.IdAvaliacao })</button>*@
+
 
             </td>
 

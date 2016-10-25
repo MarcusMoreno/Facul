@@ -11,6 +11,7 @@ namespace FaculdadeSI.Models
 {
     using System;
     using System.Collections.Generic;
+
     
     public partial class Usuario
     {
@@ -24,6 +25,7 @@ namespace FaculdadeSI.Models
         public int IdUsuario { get; set; }
         public string Nome { get; set; }
         public string Email { get; set; }
+
         public string Telefone { get; set; }
         public int IdPerfil { get; set; }
         public Nullable<bool> UsuarioStatus { get; set; }

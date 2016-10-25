@@ -170,6 +170,11 @@ namespace FaculdadeSI.Controllers
             return View();
         }
 
+        public ActionResult AnswerNotId()
+        {
+            return View();
+        }
+
         public ActionResult Answer(int id)
         {
             if (id < 0)
@@ -179,44 +184,50 @@ namespace FaculdadeSI.Controllers
 
             Avaliacao avaliacao = db.Avaliacaos.Find(id);
 
-            //Lista de perugntas que pertencem a avaliacao
-            var listPerguntasJoin = db.AvaliacaoPerguntas
-                   .Join(db.Perguntas, j => j.IdPergunta, k => k.IdPergunta, (j, k) => new { j, k }).Where(x => x.j.IdAvaliacao == id)
-                   .Join(db.Avaliacaos, a => a.j.IdAvaliacao, b => b.IdAvaliacao, (a, b) => new { a, b }).Select(s => new SelectListItem { Value = s.a.j.IdPergunta.ToString(), Text = s.a.k.DescricaoPergunta });
-            
-            //Avaliacao que vai ser retornada para a view
-            Avaliacao avaliacaoCompleta = new Avaliacao();
-            avaliacaoCompleta.IdAvaliacao = id;
-            avaliacaoCompleta.Titulo = avaliacao.Titulo;
-            avaliacaoCompleta.DescricaoAvaliacao = avaliacao.DescricaoAvaliacao;
-     
-            //Para cada pergunta da lista, pega suas opções de respostas
-            foreach (var item in listPerguntasJoin)
+            if(avaliacao != null)
             {
-                Pergunta pergunta = new Pergunta();
-                pergunta.DescricaoPergunta = item.Text;
-                pergunta.IdPergunta = Convert.ToInt32(item.Value);
+                //Lista de perugntas que pertencem a avaliacao
+                var listPerguntasJoin = db.AvaliacaoPerguntas
+                       .Join(db.Perguntas, j => j.IdPergunta, k => k.IdPergunta, (j, k) => new { j, k }).Where(x => x.j.IdAvaliacao == id)
+                       .Join(db.Avaliacaos, a => a.j.IdAvaliacao, b => b.IdAvaliacao, (a, b) => new { a, b }).Select(s => new SelectListItem { Value = s.a.j.IdPergunta.ToString(), Text = s.a.k.DescricaoPergunta });
 
-                foreach (var item2 in db.PerguntaTipoRespostas.Where(x => x.IdPergunta.ToString() == item.Value))
+                //Avaliacao que vai ser retornada para a view
+                Avaliacao avaliacaoCompleta = new Avaliacao();
+                avaliacaoCompleta.IdAvaliacao = id;
+                avaliacaoCompleta.Titulo = avaliacao.Titulo;
+                avaliacaoCompleta.DescricaoAvaliacao = avaliacao.DescricaoAvaliacao;
+
+                //Para cada pergunta da lista, pega suas opções de respostas
+                foreach (var item in listPerguntasJoin)
                 {
-                    TipoResposta tipoResposta = new TipoResposta();
+                    Pergunta pergunta = new Pergunta();
+                    pergunta.DescricaoPergunta = item.Text;
+                    pergunta.IdPergunta = Convert.ToInt32(item.Value);
 
-                    var tipoRespostaNovo = db.TipoRespostas.FirstOrDefault(x => x.IdTipoResposta == item2.IdtipoResposta);
+                    foreach (var item2 in db.PerguntaTipoRespostas.Where(x => x.IdPergunta.ToString() == item.Value))
+                    {
+                        TipoResposta tipoResposta = new TipoResposta();
 
-                    tipoResposta.IdTipoResposta = tipoRespostaNovo.IdTipoResposta;
-                    tipoResposta.DescricaoTipoResposta = tipoRespostaNovo.DescricaoTipoResposta;
+                        var tipoRespostaNovo = db.TipoRespostas.FirstOrDefault(x => x.IdTipoResposta == item2.IdtipoResposta);
 
-                    pergunta.TipoRespostas.Add(tipoResposta);
+                        tipoResposta.IdTipoResposta = tipoRespostaNovo.IdTipoResposta;
+                        tipoResposta.DescricaoTipoResposta = tipoRespostaNovo.DescricaoTipoResposta;
+
+                        pergunta.TipoRespostas.Add(tipoResposta);
+                    }
+                    avaliacaoCompleta.Pergunta.Add(pergunta);
                 }
-                 avaliacaoCompleta.Pergunta.Add(pergunta);              
+
+                if (avaliacaoCompleta == null)
+                {
+                    return HttpNotFound();
+                }
+
+                return View(avaliacaoCompleta);
             }
+           
+            return RedirectToAction("AnswerNotId");
             
-            if (avaliacaoCompleta == null)
-            {
-                return HttpNotFound();
-            }
-        
-            return View(avaliacaoCompleta);
         }
 
         [HttpPost]
@@ -350,26 +361,31 @@ namespace FaculdadeSI.Controllers
 
         public ActionResult TesteCSV(int id)
         {
-            StreamWriter valor = new StreamWriter(string.Format("C:\\Users\\Marcus\\Desktop\\Particular\\Relatorios\\{0}.txt", DateTime.Now.ToString("ddMMyyyyHHmmss")));
+            string caminho = string.Format("C:\\Users\\Marcus\\Desktop\\Particular\\Relatorios\\{0}.txt", DateTime.Now.ToString("ddMMyyyyHHmmss"));
+            StreamWriter valor = new StreamWriter(caminho);
             //valor.WriteLine("____________________________________________________________________________");
             valor.WriteLine("Descricão da avaliação;Descrição da pergunta; Descrição da resposta");
       
             //var t = db.Avaliacaos.Where(x => x.IdAvaliacao == id);
             var t = db.AvaliacaoRespostas.Where(x => x.IdAvaliacao == id);
 
-            foreach( var item in t)
+            foreach (var item in t)
             {
                 var descAvaliacao = db.Avaliacaos.FirstOrDefault(x => x.IdAvaliacao == item.IdAvaliacao);
                 var descPergunta = db.Perguntas.FirstOrDefault(x => x.IdPergunta == item.IdPergunta);
                 var descTipoResposta = db.TipoRespostas.FirstOrDefault(x => x.IdTipoResposta == item.IdTipoResposta);
 
                 valor.WriteLine(string.Format("{0};{1};{2}", descAvaliacao.DescricaoAvaliacao, descPergunta.DescricaoPergunta, descTipoResposta.DescricaoTipoResposta));
-                
             }
+            valor.Close();          
 
-            valor.Close();
-            
-            return RedirectToAction("Index");
-        }     
+            return RedirectToAction("RelatorioCreated");
+        }
+
+        public ActionResult RelatorioCreated()
+        {
+            var avaliacaos = db.Avaliacaos.Include(a => a.Perfil).Include(a => a.Usuario).ToList();
+            return View(avaliacaos);
+        }
     }
 }

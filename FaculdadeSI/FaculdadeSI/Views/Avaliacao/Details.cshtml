@@ -61,16 +61,23 @@
 }
 
 <div>
-
-    <p>  
+    
+       <button class="btn" style="width:90px">@Html.ActionLink("Voltar", "Index")</button>
+       <table align="right">
+           <tr>
+                <td>
+                   <button class="btn btn-warning pull-right" style="width:90px"><i class="glyphicon glyphicon-edit"></i><span>@Html.ActionLink("Editar", "Edit", new { id = Model.IdAvaliacao }) </span></button>
+                   
+               </td>
+               <td>
+                   <button class="btn btn-success pull-right" style="width:90px"><i class="glyphicon glyphicon-envelope"></i><span>@Html.ActionLink("Enviar", "Sent", new { idPerfil = Model.IdPerfil, idAvaliacao = Model.IdAvaliacao })</span></button>
+               </td>
+              
+           </tr>
+            </table>
         
-       
-        <button class="btn" style="width:90px">@Html.ActionLink("Voltar", "Index")</button>     
-        @*<button class="btn btn-warning pull-right" style="width:90px"><i class="glyphicon glyphicon-edit"></i><span>@Html.ActionLink("Editar", "Edit", new { idAvaliacao = Model.IdAvaliacao })</button>*@
-        <button class="btn btn-warning pull-right" style="width:90px"><i class="glyphicon glyphicon-edit"></i><span>@Html.ActionLink("Editar", "Edit", new { id = Model.IdAvaliacao }) </span></button>
-        <button class="btn btn-success pull-right" style="width:90px" ><i class="glyphicon glyphicon-envelope"></i><span>@Html.ActionLink("Enviar", "Sent", new { idPerfil = Model.IdPerfil, idAvaliacao = Model.IdAvaliacao })</span></button>
 
-       </p>
+      
 </div>
 
 

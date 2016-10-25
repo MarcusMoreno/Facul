@@ -34,8 +34,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Telefone, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Telefone, new { htmlAttributes = new { @required = "required", @class = "form-control", @type = "number" } })
-                @Html.ValidationMessageFor(model => model.Telefone, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Telefone, new { htmlAttributes = new { @required = "required", @class = "form-control", @type = "number"} })
+                @Html.ValidationMessageFor(model => model.Telefone, "", new { @class = "text-danger"})
             </div>
         </div>
 
