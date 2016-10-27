@@ -366,26 +366,26 @@ namespace FaculdadeSI.Controllers
             valor.WriteLine("Descricão da avaliação;Descrição da pergunta; Descrição da resposta");      
             var listAvaliacaoResposta = db.AvaliacaoRespostas.Where(x => x.IdAvaliacao == id).ToList();          
             
-            foreach( var idPergunta in listAvaliacaoResposta.Where(x => x.IdAvaliacao == id).GroupBy(y => new{y.IdPergunta}).ToList())
-            {
-                IDictionary<string, string> dict = new Dictionary<string, string>();
+            //foreach( var idPergunta in listAvaliacaoResposta.Where(x => x.IdAvaliacao == id).GroupBy(y => new{y.IdPergunta}).ToList())
+            //{
+            //    IDictionary<string, string> dict = new Dictionary<string, string>();
      
-                foreach(var idTipoResposta in listAvaliacaoResposta.Where(x => x.IdPergunta == idPergunta.Key.IdPergunta).Select(x => x.IdTipoResposta).ToList())
-                {
-                    //adiciona no dicionário o idRespostas selecionados com suas qty
-                    dict.Add(idTipoResposta.ToString(), listAvaliacaoResposta.Where(x => x.IdTipoResposta == idTipoResposta && x.IdPergunta == idPergunta.Key.IdPergunta).Count().ToString());
-                }
+            //    foreach(var idTipoResposta in listAvaliacaoResposta.Where(x => x.IdPergunta == idPergunta.Key.IdPergunta).Select(x => x.IdTipoResposta).ToList())
+            //    {
+            //        //adiciona no dicionário o idRespostas selecionados com suas qty
+            //        dict.Add(idTipoResposta.ToString(), listAvaliacaoResposta.Where(x => x.IdTipoResposta == idTipoResposta && x.IdPergunta == idPergunta.Key.IdPergunta).Count().ToString());
+            //    }
 
-                foreach (var items in db.PerguntaTipoRespostas.Where(x => x.IdPergunta == idPergunta.Key.IdPergunta).ToList())
-                {
-                    //se nao existe a opcao no no dicionario, adiciona tambem
-                    if(!dict.Keys.Contains(items.IdtipoResposta.ToString()))
-                    {
-                        dict.Add(items.IdtipoResposta.ToString(), "0");
-                    }
-                }
+            //    foreach (var items in db.PerguntaTipoRespostas.Where(x => x.IdPergunta == idPergunta.Key.IdPergunta).ToList())
+            //    {
+            //        //se nao existe a opcao no no dicionario, adiciona tambem
+            //        if(!dict.Keys.Contains(items.IdtipoResposta.ToString()))
+            //        {
+            //            dict.Add(items.IdtipoResposta.ToString(), "0");
+            //        }
+            //    }
  
-            }            
+            //}            
                            
 
             foreach (var item in listAvaliacaoResposta)
